@@ -3,3 +3,17 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.base-txt {
+  color: #de0d16 !important;
+}
+.base-bg {
+  background-color: #de0d16 !important;
+}
+.center-itm {
+  @apply flex items-center justify-center;
+}
+
+.brand-box {
+  border-top-right-radius: 20rem;
+}
