@@ -4,6 +4,7 @@ import { FaBars, FaPlus, FaTimes } from "react-icons/fa";
 import TopNavStatic from "./TopNavStatic";
 import { useState } from "react";
 import ActiveLink from "./ActiveLink";
+import Profile from "./Profile";
 const links = [
   { id: 1, title: "Home", url: "/" },
   { id: 2, title: "About us", url: "/about_us" },
@@ -31,7 +32,9 @@ const NavBar = () => {
             </ActiveLink>
           ))}
         </div>
-        <div className="w-60 border h-full"></div>
+        <div className="w-fit lg:w-3/12 flex items-center justify-end pr-10 h-full">
+          <Profile />
+        </div>
         <div className="lg:hidden w-20 z-50">
           <button
             className="btn btn-ghost btn-circle "

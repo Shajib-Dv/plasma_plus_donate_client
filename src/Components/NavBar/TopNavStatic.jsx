@@ -1,7 +1,7 @@
 /** @format */
 import { BsFillEnvelopeFill, BsFillTelephonePlusFill } from "react-icons/bs";
 import { MdLocationOn } from "react-icons/md";
-import { FaFacebook } from "react-icons/fa";
+import { FaFacebook, FaInstagram, FaTwitter, FaYoutube } from "react-icons/fa";
 const TopNavStatic = () => {
   return (
     <div
@@ -32,28 +32,28 @@ const TopNavStatic = () => {
             <FaFacebook />
           </a>
           <a
-            href="http://facebook.com/shajib.hossain.dev"
+            href="http://twiter.com/shajib.hossain.dev"
             target="_blank"
             rel="noopener noreferrer"
             className="block text-2xl"
           >
-            <FaFacebook />
+            <FaTwitter />
           </a>
           <a
-            href="http://facebook.com/shajib.hossain.dev"
+            href="http://instagram.com/shajib.hossain.dev"
             target="_blank"
             rel="noopener noreferrer"
             className="block text-2xl"
           >
-            <FaFacebook />
+            <FaInstagram />
           </a>
           <a
-            href="http://facebook.com/shajib.hossain.dev"
+            href="http://youtube.com/shajib.hossain.dev"
             target="_blank"
             rel="noopener noreferrer"
             className="block text-2xl"
           >
-            <FaFacebook />
+            <FaYoutube />
           </a>
         </div>
       </div>
