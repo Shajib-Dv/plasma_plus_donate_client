@@ -1,7 +1,7 @@
 /** @format */
 
 import { useRef, useState } from "react";
-import Swal from "sweetalert2";
+import useToast from "../../../hooks/useToast";
 const img_host_url = `https://api.imgbb.com/1/upload?key=${
   import.meta.env.VITE_IMG_HOST_KEY
 }`;
@@ -10,18 +10,7 @@ const AddArticles = () => {
   const [avatar, setAvatar] = useState(null);
   const [inputData, setInputData] = useState({});
   const [loading, setLoading] = useState(false);
-
-  const Toast = Swal.mixin({
-    toast: true,
-    position: "top-right",
-    iconColor: "white",
-    customClass: {
-      popup: "colored-toast",
-    },
-    showConfirmButton: false,
-    timer: 1500,
-    timerProgressBar: true,
-  });
+  const { Toast } = useToast();
 
   const uploadImage = () => {
     return new Promise((resolve, reject) => {

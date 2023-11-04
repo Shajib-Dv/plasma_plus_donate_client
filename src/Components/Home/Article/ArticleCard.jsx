@@ -1,10 +1,37 @@
 /** @format */
 import { BiGridSmall } from "react-icons/bi";
-import banner from "../../../assets/home_banner.jpg";
 import { GiLifeSupport } from "react-icons/gi";
-const ArticleCard = ({ article, handleEditArticle }) => {
+import Swal from "sweetalert2";
+import useToast from "../../../hooks/useToast";
+const ArticleCard = ({ article, handleEditArticle, refetch }) => {
+  const { Toast } = useToast();
+  const { _id, title, description, bannerImg } = article;
+
   const handleDeleteArticle = (id) => {
-    console.log("Delete article");
+    Swal.fire({
+      title: "Your article will be deleted",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "red",
+      cancelButtonColor: "#4433dd",
+      confirmButtonText: "Delete",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        fetch(`http://localhost:3000/article/${id}`, {
+          method: "DELETE",
+        })
+          .then((res) => res.json())
+          .then(async (result) => {
+            if (result.deletedCount > 0) {
+              refetch();
+              await Toast.fire({
+                icon: "success",
+                title: "Article deleted successfully",
+              });
+            }
+          });
+      }
+    });
   };
 
   return (
@@ -12,7 +39,7 @@ const ArticleCard = ({ article, handleEditArticle }) => {
       <div className="relative">
         <figure className="h-80 rounded-lg">
           <img
-            src={banner}
+            src={bannerImg}
             alt="image"
             className="w-full h-full object-cover"
           />
@@ -32,20 +59,19 @@ const ArticleCard = ({ article, handleEditArticle }) => {
               className="z-20 p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-max mr-4"
             >
               <li>
-                <button onClick={() => handleEditArticle({ id: 2222 })}>
-                  Edit
-                </button>
+                <button onClick={() => handleEditArticle(article)}>Edit</button>
               </li>
               <li>
-                <button onClick={() => handleDeleteArticle()}>Delete</button>
+                <button onClick={() => handleDeleteArticle(_id)}>Delete</button>
               </li>
             </ul>
           </div>
         </div>
       </div>
       <div className="card-body text-center gap-4 mt-10">
-        <h2 className="text-2xl font-bold text-center">{"become a donor"}</h2>
-        <p>If a dog chews shoes whose shoes does he choose?</p>
+        <h2 className="text-2xl font-bold text-center">{title}</h2>
+        <p>{description.slice(0, 100)}...</p>
+
         <div className="card-actions justify-center w-full">
           <button className="btn-base w-full">Read More</button>
         </div>

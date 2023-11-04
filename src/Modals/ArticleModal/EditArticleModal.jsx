@@ -1,14 +1,19 @@
 /** @format */
 
 import { useRef, useState } from "react";
+import useToast from "../../hooks/useToast";
 
 const img_host_url = `https://api.imgbb.com/1/upload?key=${
   import.meta.env.VITE_IMG_HOST_KEY
 }`;
-const EditArticleModal = ({ open, close, article }) => {
+const EditArticleModal = ({ open, close, article, refetch }) => {
   const avatarRef = useRef();
   const [avatar, setAvatar] = useState(null);
   const [inputData, setInputData] = useState({});
+  const [loading, setLoading] = useState(false);
+  const { Toast } = useToast();
+
+  const { _id, title, description, bannerImg } = article;
 
   const uploadImage = () => {
     return new Promise((resolve, reject) => {
@@ -57,20 +62,46 @@ const EditArticleModal = ({ open, close, article }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+  };
+
+  const handleUpdateArticle = async (id) => {
+    setLoading(true);
+
     try {
-      const bannerImg = await uploadImage();
+      let newBanner = bannerImg;
+      if (avatar) {
+        newBanner = await uploadImage();
+      }
 
       const storeArticle = {
         ...inputData,
-        bannerImg,
+        bannerImg: newBanner,
         date: new Date(),
-        user: "user",
       };
-      console.log(storeArticle);
+
+      fetch(`http://localhost:3000/article/${id}`, {
+        method: "PUT",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify(storeArticle),
+      })
+        .then((res) => res.json())
+        .then(async (result) => {
+          if (result.modifiedCount > 0) {
+            refetch();
+            close();
+            setLoading(false);
+            await Toast.fire({
+              icon: "success",
+              title: "Article updated successfully",
+            });
+          }
+        });
     } catch (error) {
       console.error(error);
+      setLoading(false);
     }
   };
+
   return (
     <>
       <dialog open={open} className="modal">
@@ -84,11 +115,7 @@ const EditArticleModal = ({ open, close, article }) => {
                   title="Choose article banner"
                 >
                   <img
-                    src={
-                      avatar
-                        ? avatar
-                        : "https://i.ibb.co/kc20dsb/blank-profile-picture-973460-1280.png"
-                    }
+                    src={avatar ? avatar : bannerImg}
                     alt="avatar"
                     className="w-full h-full object-cover"
                   />
@@ -102,7 +129,9 @@ const EditArticleModal = ({ open, close, article }) => {
 
                   <div className="absolute center-ps  base-txt font-semibold  w-full h-full text-center bg-black bg-opacity-50">
                     <div className="center-itm w-full h-full">
-                      <p>{avatar ? "Change" : "Choose"} Banner</p>
+                      <p>
+                        {avatar || !!bannerImg ? "Change" : "Choose"} Banner
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -116,6 +145,7 @@ const EditArticleModal = ({ open, close, article }) => {
                   type="text"
                   placeholder="Title"
                   className="input-file"
+                  defaultValue={title}
                 />
                 <textarea
                   required={true}
@@ -126,9 +156,18 @@ const EditArticleModal = ({ open, close, article }) => {
                   cols="20"
                   rows="4"
                   placeholder="Write your article description"
+                  defaultValue={description}
                 ></textarea>
-                <button type="submit" className="btn-base w-full">
-                  Submit
+                <button
+                  disabled={loading}
+                  onClick={() => handleUpdateArticle(_id)}
+                  className="btn-base w-full"
+                >
+                  {loading ? (
+                    <span className="loading loading-dots loading-sm base-txt"></span>
+                  ) : (
+                    "Update"
+                  )}
                 </button>
               </div>
             </form>
