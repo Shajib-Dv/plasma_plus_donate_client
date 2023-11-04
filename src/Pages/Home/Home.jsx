@@ -2,7 +2,7 @@
 
 import { Helmet } from "react-helmet-async";
 import Banner from "../../Components/Home/Banner";
-import Articles from "../../Components/Home/Articles";
+import Articles from "../../Components/Home/Article/Articles";
 
 const Home = () => {
   return (

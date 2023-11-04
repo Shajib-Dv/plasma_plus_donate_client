@@ -1,6 +1,7 @@
 /** @format */
 import { Swiper, SwiperSlide } from "swiper/react";
 import { BiGridSmall } from "react-icons/bi";
+import { PiSignIn } from "react-icons/pi";
 import "swiper/css";
 import "swiper/css/navigation";
 import { Navigation } from "swiper/modules";
@@ -53,6 +54,7 @@ const Banner = () => {
           </SwiperSlide>
         </Swiper>
 
+        {/* TODO: only admin can see it */}
         <div className="absolute top-0 right-0 z-20 btn btn-ghost btn-circle">
           <BiGridSmall className="text-3xl" />
         </div>
@@ -76,7 +78,7 @@ const Banner = () => {
       </div>
       <div className="lg:w-4/5 left-[50%] lg:-translate-x-1/2 lg:absolute -bottom-[12rem] z-50">
         <div className="lg:flex">
-          <div className="h-hull p-6 bg-black text-white flex-1">
+          <div className="h-hull p-6 bg-black text-white flex-1 flex items-center justify-between gap-4">
             <div>
               <h2 className="text-3xl font-bold">Register Now</h2>
               <p>
@@ -84,12 +86,18 @@ const Banner = () => {
                 healthy, register now.
               </p>
             </div>
+            <button>
+              <PiSignIn className="text-3xl" />
+            </button>
           </div>
-          <div className="h-hull p-6 base-bg text-white flex-1">
+          <div className="h-hull p-6 base-bg text-white flex-1 flex items-center justify-between gap-4">
             <div>
               <h2 className="text-3xl font-bold">Donate Now</h2>
               <p>Become a donor and help the mankind for inner peace.</p>
             </div>
+            <button>
+              <PiSignIn className="text-3xl" />
+            </button>
           </div>
         </div>
       </div>
