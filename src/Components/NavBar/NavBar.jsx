@@ -48,20 +48,22 @@ const NavBar = () => {
           </button>
         </div>
       </div>
-      <div
-        className={`lg:hidden flex flex-col w-full px-10 space-y-4 bg-base-200 fixed transition-all duration-700 ease-out ${
-          isNavOpen ? "left-0" : "-left-[999px] rounded-md"
-        }`}
-      >
-        {links.map((link) => (
-          <ActiveLink
-            key={link.id}
-            to={link.url}
-            onClick={() => setIsNavOpen((p) => !p)}
-          >
-            {link.title}
-          </ActiveLink>
-        ))}
+      <div className="relative">
+        <div
+          className={`lg:hidden z-50 flex flex-col w-full px-10 space-y-4 bg-base-200 absolute transition-all duration-700 ease-in-out ${
+            isNavOpen ? "left-0 top-0 py-5" : "-left-[9999px] rounded-md"
+          }`}
+        >
+          {links.map((link) => (
+            <ActiveLink
+              key={link.id}
+              to={link.url}
+              onClick={() => setIsNavOpen((p) => !p)}
+            >
+              {link.title}
+            </ActiveLink>
+          ))}
+        </div>
       </div>
     </>
   );

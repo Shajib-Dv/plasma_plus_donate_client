@@ -4,7 +4,9 @@
 @tailwind components;
 @tailwind utilities;
 
-.base-txt {
+.base-txt,
+.swiper-button-prev,
+.swiper-button-next {
   color: #de0d16 !important;
 }
 .base-bg {
@@ -16,4 +18,23 @@
 
 .brand-box {
   border-top-right-radius: 20rem;
+}
+
+.center-ps {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.btn-base {
+  @apply btn bg-[#de0d16] text-white capitalize hover:bg-[#de0d18e7] border-none;
+}
+
+.bg-blood {
+  background-image: url(./assets/blood-bg.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  background-clip: border-box;
+  background-attachment: scroll;
 }

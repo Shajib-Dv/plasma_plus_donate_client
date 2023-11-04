@@ -1,6 +1,8 @@
 /** @format */
 
 import { Helmet } from "react-helmet-async";
+import Banner from "../../Components/Home/Banner";
+import Articles from "../../Components/Home/Articles";
 
 const Home = () => {
   return (
@@ -8,7 +10,8 @@ const Home = () => {
       <Helmet>
         <title>Plasma Plus | Home</title>
       </Helmet>
-      <div className="text-red-600 text-2xl">Home</div>
+      <Banner />
+      <Articles />
     </>
   );
 };
