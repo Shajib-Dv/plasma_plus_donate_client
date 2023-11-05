@@ -39,6 +39,10 @@
   background-attachment: scroll;
 }
 
+.service-container > div:nth-child(even) {
+  flex-direction: row-reverse;
+}
+
 .input-file {
   @apply w-full p-4 border rounded-2xl;
 }
