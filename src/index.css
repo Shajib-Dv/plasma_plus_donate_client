@@ -39,6 +39,15 @@
   background-attachment: scroll;
 }
 
+.bg-doctor {
+  background-image: url(./assets/Doctors.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  background-clip: border-box;
+  background-attachment: scroll;
+}
+
 .service-container > div:nth-child(even) {
   flex-direction: row-reverse;
 }

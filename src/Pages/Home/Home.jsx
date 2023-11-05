@@ -6,6 +6,7 @@ import Articles from "../../Components/Home/Article/Articles";
 import DonorBanner from "../../Components/Home/DonorBanner";
 import Statics from "../../Components/Home/Statics";
 import Services from "../../Components/Home/Services/Services";
+import RequestBloodBanner from "../../Components/Home/BloodRequest/RequestBloodBanner";
 
 const Home = () => {
   return (
@@ -18,6 +19,7 @@ const Home = () => {
       <DonorBanner />
       <Statics />
       <Services />
+      <RequestBloodBanner />
     </>
   );
 };

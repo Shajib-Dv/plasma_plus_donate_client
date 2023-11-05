@@ -3,8 +3,8 @@ import { FaAward, FaPeopleCarry, FaTrophy } from "react-icons/fa";
 import { BsFillHeartPulseFill } from "react-icons/bs";
 const Statics = () => {
   return (
-    <div className="min-h-60 bg-blood mb-40">
-      <div className="h-full p-4 w-full bg-black text-white bg-opacity-50 flex items-center gap-14 justify-evenly flex-wrap">
+    <div className="min-h-[300px] bg-blood mb-40 overflow-hidden">
+      <div className="h-96 p-4 w-full bg-black text-white bg-opacity-50 flex items-center gap-14 justify-evenly flex-wrap">
         <div className="flex flex-col items-center gap-2">
           <FaAward className="text-3xl base-txt" />
           <p className="text-5xl font-bold">250</p>
