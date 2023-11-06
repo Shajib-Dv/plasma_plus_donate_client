@@ -1,12 +1,17 @@
 /** @format */
 
-const Profile = () => {
+import useAuth from "../../hooks/useAuth";
+
+const Profile = ({ user = {} }) => {
+  const { logOut } = useAuth();
   return (
     <>
       <div className="dropdown dropdown-end">
-        <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
-          <div className="w-16 rounded-full">
-            {<img src="/images/stock/photo-1534528741775-53994a69daeb.jpg" />}
+        <label tabIndex={0} className="btn btn-ghost btn-circle">
+          <div className="avatar placeholder">
+            <div className="base-bg text-white rounded-full w-10">
+              <span>{user?.email?.slice(0, 2)}</span>
+            </div>
           </div>
         </label>
         <ul
@@ -23,7 +28,7 @@ const Profile = () => {
             <a>Settings</a>
           </li>
           <li>
-            <a>Logout</a>
+            <button onClick={() => logOut()}>Logout</button>
           </li>
         </ul>
       </div>

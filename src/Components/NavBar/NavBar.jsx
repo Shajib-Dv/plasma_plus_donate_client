@@ -5,6 +5,7 @@ import TopNavStatic from "./TopNavStatic";
 import { useState } from "react";
 import ActiveLink from "./ActiveLink";
 import Profile from "./Profile";
+import useAuth from "../../hooks/useAuth";
 const links = [
   { id: 1, title: "Home", url: "/" },
   { id: 2, title: "About us", url: "/about_us" },
@@ -16,6 +17,7 @@ const links = [
 ];
 const NavBar = () => {
   const [isNavOpen, setIsNavOpen] = useState(false);
+  const { user } = useAuth();
 
   return (
     <>
@@ -33,7 +35,7 @@ const NavBar = () => {
           ))}
         </div>
         <div className="w-fit lg:w-3/12 flex items-center justify-end pr-10 h-full">
-          <Profile />
+          {user?.email && <Profile user={user} />}
         </div>
         <div className="lg:hidden w-20 z-50">
           <button
