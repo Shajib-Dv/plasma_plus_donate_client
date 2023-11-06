@@ -4,7 +4,8 @@ import { BiGridSmall } from "react-icons/bi";
 import { PiSignIn } from "react-icons/pi";
 import "swiper/css";
 import "swiper/css/navigation";
-import { Navigation } from "swiper/modules";
+import { Autoplay, Navigation } from "swiper/modules";
+import { Link } from "react-router-dom";
 const Banner = () => {
   //TODO: this banner should be dynamic.
   const bannerImg =
@@ -14,7 +15,9 @@ const Banner = () => {
       <div className="relative lg:mb-20">
         <Swiper
           navigation={true}
-          modules={[Navigation]}
+          modules={[Navigation, Autoplay]}
+          autoplay
+          loop={true}
           className="mySwiper lg:h-screen z-0"
         >
           <SwiperSlide>
@@ -86,18 +89,18 @@ const Banner = () => {
                 healthy, register now.
               </p>
             </div>
-            <button>
+            <Link to={"/registration"}>
               <PiSignIn className="text-3xl" />
-            </button>
+            </Link>
           </div>
           <div className="h-hull p-6 base-bg text-white flex-1 flex items-center justify-between gap-4">
             <div>
               <h2 className="text-3xl font-bold">Donate Now</h2>
               <p>Become a donor and help the mankind for inner peace.</p>
             </div>
-            <button>
+            <Link to={"/donors"}>
               <PiSignIn className="text-3xl" />
-            </button>
+            </Link>
           </div>
         </div>
       </div>

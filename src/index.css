@@ -60,6 +60,15 @@
   @apply border-[#de0d16] outline-none;
 }
 
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+::-webkit-scrollbar-thumb {
+  background-color: #de0d16;
+  border-radius: 10px;
+}
+
 .colored-toast.swal2-icon-success {
   background-color: #de0d16 !important;
 }

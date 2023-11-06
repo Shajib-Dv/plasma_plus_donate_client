@@ -20,7 +20,7 @@ const CurrentBloodRequest = () => {
     return formattedDate;
   };
   return (
-    <div className="w-full h-full bg-base-100 p-10 shadow-xl rounded-md">
+    <div className="w-full min-h-full bg-base-100 p-10 shadow-xl rounded-md">
       <h2 className="text-black text-3xl font-bold leading-loose">
         Current Blood Request
       </h2>

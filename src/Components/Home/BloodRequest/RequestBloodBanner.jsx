@@ -5,7 +5,7 @@ import CurrentBloodRequest from "./CurrentBloodRequest";
 
 const RequestBloodBanner = () => {
   return (
-    <div className="mb-40">
+    <div className="mb-40" id="blood-request">
       <div className="h-96 border overflow-hidden bg-doctor">
         <div className="h-full w-full bg-black bg-opacity-80 center-itm flex-col">
           <h2 className="text-white text-5xl font-bold text-center">
@@ -16,10 +16,10 @@ const RequestBloodBanner = () => {
         </div>
       </div>
       <div className="flex lg:flex-row flex-col-reverse gap-10 container mx-auto lg:-mt-20">
-        <div className="flex-1 h-max">
+        <div className="flex-1 min-h-full">
           <CurrentBloodRequest />
         </div>
-        <div className="flex-1 h-max">
+        <div className="flex-1 min-h-full">
           <BloodRequestForm />
         </div>
       </div>

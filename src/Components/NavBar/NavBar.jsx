@@ -14,6 +14,7 @@ const links = [
   { id: 5, title: "Blog", url: "/blog" },
   { id: 6, title: "Contact", url: "/contact" },
   { id: 7, title: "Registration", url: "/registration" },
+  { id: 8, title: "Donors", url: "/donors" },
 ];
 const NavBar = () => {
   const [isNavOpen, setIsNavOpen] = useState(false);
