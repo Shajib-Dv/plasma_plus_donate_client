@@ -1,14 +1,57 @@
 /** @format */
 
 import { useState } from "react";
+import useCurrentUser from "../../../hooks/useCurrentUser";
+import useToast from "../../../hooks/useToast";
 
 const BloodRequestForm = () => {
-  const [fromData, setFormData] = useState({ bloodGroup: "A+" });
-  //TODO: connect to server
-  const handleBloodRequest = (e) => {
+  const [fromData, setFormData] = useState({
+    bloodGroup: "A+",
+  });
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const { currentUser } = useCurrentUser();
+  const { Toast } = useToast();
+
+  const storeBloodRequestToDB = async (info) => {
+    const res = await fetch(`http://localhost:3000/blood_request`, {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify(info),
+    });
+
+    return res.json();
+  };
+
+  const handleBloodRequest = async (e) => {
     e.preventDefault();
-    const storedBloodGroup = { ...fromData, date: new Date() };
-    console.log(storedBloodGroup);
+    setLoading(true);
+    setError("");
+    let { name, email, ...bloodInfo } = fromData;
+
+    if (currentUser && !name && !email) {
+      name = currentUser.name;
+      email = currentUser.email;
+    }
+
+    const storedInfo = { name, email, ...bloodInfo };
+
+    await storeBloodRequestToDB(storedInfo)
+      .then(async (res) => {
+        if (res.insertedId) {
+          setFormData({ bloodGroup: "A+" });
+          setLoading(false);
+          e.target.reset();
+          await Toast.fire({
+            icon: "success",
+            title: "Request send to organizer",
+          });
+        }
+      })
+      .catch((err) => {
+        setLoading(false);
+        setError(err.message);
+      });
   };
 
   const handleFromState = (name, val) => {
@@ -30,6 +73,7 @@ const BloodRequestForm = () => {
             className="input-file"
             placeholder="Your name"
             onChange={(e) => handleFromState("name", e.target.value)}
+            defaultValue={currentUser?.name}
           />
           <input
             required={true}
@@ -45,6 +89,7 @@ const BloodRequestForm = () => {
             type="email"
             className="input-file"
             placeholder="Your email"
+            defaultValue={currentUser?.email}
             onChange={(e) => handleFromState("email", e.target.value)}
           />
           <input
@@ -76,10 +121,14 @@ const BloodRequestForm = () => {
           placeholder="Your Message"
           onChange={(e) => handleFromState("message", e.target.value)}
         ></textarea>
-
+        <div className="h-4 text-xs base-txt text-center">{error && error}</div>
         <div className="text-center">
-          <button type="submit" className="btn-base w-1/2">
-            Request
+          <button disabled={loading} type="submit" className="btn-base w-1/2">
+            {loading ? (
+              <span className="loading loading-dots loading-sm base-txt"></span>
+            ) : (
+              "Request"
+            )}
           </button>
         </div>
       </form>
