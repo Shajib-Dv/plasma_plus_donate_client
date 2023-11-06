@@ -3,6 +3,7 @@
 import { useState } from "react";
 import useCurrentUser from "../../../hooks/useCurrentUser";
 import useToast from "../../../hooks/useToast";
+import getCurrentBloodRequest from "../../../utils/getCurrentBloodRequest";
 
 const BloodRequestForm = () => {
   const [fromData, setFormData] = useState({
@@ -12,6 +13,7 @@ const BloodRequestForm = () => {
   const [error, setError] = useState("");
   const { currentUser } = useCurrentUser();
   const { Toast } = useToast();
+  const { refetch } = getCurrentBloodRequest();
 
   const storeBloodRequestToDB = async (info) => {
     const res = await fetch(`http://localhost:3000/blood_request`, {
@@ -42,6 +44,7 @@ const BloodRequestForm = () => {
           setFormData({ bloodGroup: "A+" });
           setLoading(false);
           e.target.reset();
+          refetch();
           await Toast.fire({
             icon: "success",
             title: "Request send to organizer",
