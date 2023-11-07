@@ -5,7 +5,7 @@ import useToast from "../../../hooks/useToast";
 const img_host_url = `https://api.imgbb.com/1/upload?key=${
   import.meta.env.VITE_IMG_HOST_KEY
 }`;
-const AddArticles = () => {
+const AddArticles = ({ refetch }) => {
   const avatarRef = useRef();
   const [avatar, setAvatar] = useState(null);
   const [inputData, setInputData] = useState({});
@@ -77,6 +77,7 @@ const AddArticles = () => {
         .then((res) => res.json())
         .then(async (res) => {
           if (res.insertedId) {
+            refetch();
             setInputData({});
             e.target.reset();
             setAvatar(null);

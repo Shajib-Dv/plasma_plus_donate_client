@@ -43,7 +43,7 @@ const Articles = () => {
           ))}
 
         {/* Only admin can see and add article */}
-        <AddArticles />
+        <AddArticles refetch={refetch} />
       </div>
       <EditArticleModal
         open={isEditModalOpen}
