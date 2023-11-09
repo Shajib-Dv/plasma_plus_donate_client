@@ -1,11 +1,19 @@
 /** @format */
 
-import { FaHeart } from "react-icons/fa";
+import { FaHeart, FaUserTie } from "react-icons/fa";
 import { MdMessage } from "react-icons/md";
-import { BsFillTrash3Fill } from "react-icons/bs";
-import { BiMessageEdit } from "react-icons/bi";
+import {
+  BsCalendarHeart,
+  BsFillTrash3Fill,
+  BsTelephoneFill,
+} from "react-icons/bs";
+import { BiMessageEdit, BiSolidLocationPlus } from "react-icons/bi";
+import Swal from "sweetalert2";
+import useToast from "../../hooks/useToast";
 
-const RequestedBloodTable = ({ blood, refetch }) => {
+const RequestedBloodTable = ({ blood, refetch, handleMsgOpen }) => {
+  const { _id, name, bloodGroup, city, date, phone, message } = blood;
+  const { Toast } = useToast();
   const getFormattedDate = (time) => {
     const date = new Date(time);
 
@@ -20,20 +28,75 @@ const RequestedBloodTable = ({ blood, refetch }) => {
     const formattedDate = date.toLocaleString(undefined, options);
     return formattedDate;
   };
+
+  const deleteBloodRequestToDB = async (id) => {
+    const res = await fetch(`http://localhost:3000/blood_request/${id}`, {
+      method: "DELETE",
+    });
+    return res.json();
+  };
+
+  const handleDeleteBloodRequest = (id) => {
+    Swal.fire({
+      title: "Blood request will be deleted",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "red",
+      cancelButtonColor: "#dd336c",
+      confirmButtonText: "Delete",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        await deleteBloodRequestToDB(id).then(async (res) => {
+          if (res.deletedCount > 0) {
+            refetch();
+            await Toast.fire({
+              title: "Blood request deleted successfully",
+              icon: "success",
+            });
+          }
+        });
+      }
+    });
+  };
+
   return (
     <tr>
-      <td>{blood?.name}</td>
-      <td className="flex items-center gap-2">
-        <FaHeart className="base-txt" />
-        {blood?.bloodGroup}
-      </td>
-      <td>{blood?.city}</td>
-      <td>{getFormattedDate(blood?.date)}</td>
       <td>
-        <a href={`tel:${blood?.phone}`}>{blood?.phone || "not found"}</a>
+        <div className="flex items-center gap-2">
+          <FaUserTie className="base-txt" />
+          {name}
+        </div>
       </td>
       <td>
-        <span className="tooltip tooltip-warning" data-tip={"Message"}>
+        <div className="flex items-center gap-2">
+          <FaHeart className="base-txt" />
+          {bloodGroup}
+        </div>
+      </td>
+      <td>
+        <div className="flex items-center gap-2">
+          <BiSolidLocationPlus className="base-txt" />
+          {city}
+        </div>
+      </td>
+      <td>
+        <div className="flex items-center gap-2">
+          <BsCalendarHeart className="base-txt" />
+          {getFormattedDate(date)}
+        </div>
+      </td>
+      <td>
+        <div className="flex items-center gap-2">
+          <BsTelephoneFill className="base-txt" />
+          <a href={`tel:${phone}`}>{phone || "not found"}</a>
+        </div>
+      </td>
+      <td>
+        <span
+          onClick={() => handleMsgOpen(message)}
+          className="tooltip tooltip-warning"
+          data-tip={"Message"}
+        >
           <MdMessage className="text-xl text-black cursor-pointer" />
         </span>
       </td>
@@ -44,7 +107,11 @@ const RequestedBloodTable = ({ blood, refetch }) => {
         </span>
       </td>
       <td>
-        <span className="tooltip tooltip-warning" data-tip={"Delete"}>
+        <span
+          onClick={() => handleDeleteBloodRequest(_id)}
+          className="tooltip tooltip-warning"
+          data-tip={"Delete"}
+        >
           <BsFillTrash3Fill className="text-xl base-txt cursor-pointer" />
         </span>
       </td>

@@ -1,17 +1,35 @@
 /** @format */
+import { useState } from "react";
 import EmptyData from "../../Components/EmptyData";
 import Loader from "../../Components/Loader";
 import RequestedBloodTable from "../../Components/admin/RequestedBloodTable";
+import BloodRequestMsg from "../../Modals/adminModal/BloodRequestMsg";
 import getCurrentBloodRequest from "../../utils/getCurrentBloodRequest";
+import { Helmet } from "react-helmet-async";
 
 const BloodRequest = () => {
   const { requestedBloods, isLoading, refetch } = getCurrentBloodRequest();
+  const [isMsgOpen, setIsMsgOpen] = useState(false);
+  const [message, setMessage] = useState("");
+
+  const handleMsgOpen = (msg) => {
+    setIsMsgOpen(true);
+    setMessage(msg);
+  };
+
+  const handleMsgClose = () => {
+    setIsMsgOpen(false);
+    setMessage("");
+  };
 
   return (
     <>
+      <Helmet>
+        <title>Plasma_plus | blood requests</title>
+      </Helmet>
       <div className="my-10">
         <h2 className="text-3xl text-black font-bold text-center">
-          Recent Blood Requests
+          Recent <span className="base-txt">Blood</span> Requests
         </h2>
       </div>
       <div className="overflow-y-auto container mx-auto mb-40">
@@ -39,6 +57,7 @@ const BloodRequest = () => {
                   key={blood._id}
                   blood={blood}
                   refetch={refetch}
+                  handleMsgOpen={handleMsgOpen}
                 />
               ))}
             </tbody>
@@ -54,6 +73,11 @@ const BloodRequest = () => {
           )
         )}
       </div>
+      <BloodRequestMsg
+        open={isMsgOpen}
+        close={handleMsgClose}
+        message={message}
+      />
     </>
   );
 };
