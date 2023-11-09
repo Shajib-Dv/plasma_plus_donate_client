@@ -36,7 +36,7 @@ const BloodRequestForm = () => {
       email = currentUser.email;
     }
 
-    const storedInfo = { name, email, ...bloodInfo };
+    const storedInfo = { name, email, ...bloodInfo, date: new Date() };
 
     await storeBloodRequestToDB(storedInfo)
       .then(async (res) => {

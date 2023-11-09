@@ -3,8 +3,11 @@ import { BiGridSmall } from "react-icons/bi";
 import { GiLifeSupport } from "react-icons/gi";
 import Swal from "sweetalert2";
 import useToast from "../../../hooks/useToast";
+import useCurrentUser from "../../../hooks/useCurrentUser";
 const ArticleCard = ({ article, handleEditArticle, refetch }) => {
   const { Toast } = useToast();
+  const { currentUser } = useCurrentUser();
+  const { role } = currentUser;
   const { _id, title, description, bannerImg } = article;
 
   const handleDeleteArticle = (id) => {
@@ -49,24 +52,30 @@ const ArticleCard = ({ article, handleEditArticle, refetch }) => {
             <GiLifeSupport className="text-7xl" />
           </div>
         </div>
-        <div className="absolute top-0 right-0 z-20 btn btn-ghost btn-circle">
-          <div className="dropdown dropdown-end">
-            <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
-              <BiGridSmall className="text-3xl base-txt" />
-            </label>
-            <ul
-              tabIndex={0}
-              className="z-20 p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-max mr-4"
-            >
-              <li>
-                <button onClick={() => handleEditArticle(article)}>Edit</button>
-              </li>
-              <li>
-                <button onClick={() => handleDeleteArticle(_id)}>Delete</button>
-              </li>
-            </ul>
+        {role === "admin" && (
+          <div className="absolute top-0 right-0 z-20 btn btn-ghost btn-circle">
+            <div className="dropdown dropdown-end">
+              <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
+                <BiGridSmall className="text-3xl base-txt" />
+              </label>
+              <ul
+                tabIndex={0}
+                className="z-20 p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-max mr-4"
+              >
+                <li>
+                  <button onClick={() => handleEditArticle(article)}>
+                    Edit
+                  </button>
+                </li>
+                <li>
+                  <button onClick={() => handleDeleteArticle(_id)}>
+                    Delete
+                  </button>
+                </li>
+              </ul>
+            </div>
           </div>
-        </div>
+        )}
       </div>
       <div className="card-body text-center gap-4 mt-10">
         <h2 className="text-2xl font-bold text-center">{title}</h2>

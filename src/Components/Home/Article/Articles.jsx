@@ -5,11 +5,13 @@ import EditArticleModal from "../../../Modals/ArticleModal/EditArticleModal";
 import AddArticles from "./AddArticles";
 import ArticleCard from "./ArticleCard";
 import getArticles from "../../../utils/getArticles";
+import useCurrentUser from "../../../hooks/useCurrentUser";
 
 const Articles = () => {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [editableArticle, setEditableArticle] = useState({});
-
+  const { currentUser } = useCurrentUser();
+  const { role } = currentUser;
   const { articles, isLoading, refetch } = getArticles();
 
   const handleEditArticle = (article) => {
@@ -42,8 +44,7 @@ const Articles = () => {
             />
           ))}
 
-        {/* Only admin can see and add article */}
-        <AddArticles refetch={refetch} />
+        {role === "admin" && <AddArticles refetch={refetch} />}
       </div>
       <EditArticleModal
         open={isEditModalOpen}
