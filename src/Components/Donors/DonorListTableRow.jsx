@@ -6,7 +6,17 @@ import {
   BsTelephoneFill,
 } from "react-icons/bs";
 import useCurrentUser from "../../hooks/useCurrentUser";
-const DonorListTableRow = () => {
+const DonorListTableRow = ({ donor }) => {
+  const {
+    _id,
+    bloodGroup,
+    name,
+    phone,
+    city,
+    lastDonation,
+    donorImg,
+    isAbleToDonate,
+  } = donor;
   const { role } = useCurrentUser();
   return (
     <tr>
@@ -14,37 +24,38 @@ const DonorListTableRow = () => {
         <div className="flex items-center space-x-3">
           <div className="avatar">
             <div className="mask mask-squircle w-12 h-12">
-              <img
-                src="/tailwind-css-component-profile-2@56w.png"
-                alt="Donor"
-              />
+              <img src={donorImg} alt="Donor" loading="lazy" />
             </div>
           </div>
           <div>
-            <div className="font-bold">{"Name"}</div>
+            <div className="font-bold">{name}</div>
           </div>
         </div>
       </td>
       <td>
-        <span className="badge badge-ghost badge-sm">A+</span>
+        <span className="badge badge-ghost badge-sm">{bloodGroup}</span>
       </td>
-      <td>{"location"}</td>
+      <td>{city}</td>
       <th>
         <div className="flex items-center gap-2">
           <BsTelephoneFill className="base-txt" />
-          <a href={`tel:00`}>{"Tel"}</a>
+          <a href={`tel:${phone}`}>{phone}</a>
         </div>
       </th>
       <th>
         <div className="flex items-center gap-2">
-          <FaHeart className={`base-txt opacity-60`} />
-          <span>Status</span>
+          <FaHeart
+            className={`base-txt ${
+              isAbleToDonate === "unable" && "opacity-60"
+            }`}
+          />
+          <span>{isAbleToDonate}</span>
         </div>
       </th>
       <th>
         <div className="flex items-center gap-2">
           <BsCalendarHeart className={`base-txt`} />
-          <span>Last_d</span>
+          <span>{lastDonation}</span>
         </div>
       </th>
       {role === "admin" && (

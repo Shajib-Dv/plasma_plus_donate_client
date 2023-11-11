@@ -2,6 +2,7 @@
 
 import { useRef, useState } from "react";
 import useToast from "../../hooks/useToast";
+import getDonors from "../../utils/getDonors";
 
 const img_host_url = `https://api.imgbb.com/1/upload?key=${
   import.meta.env.VITE_IMG_HOST_KEY
@@ -13,6 +14,7 @@ const AddDonor = () => {
   const [inputData, setInputData] = useState({ bloodGroup: "A+" });
   const [error, setError] = useState("");
   const { Toast } = useToast();
+  const { refetch } = getDonors();
 
   const uploadImage = () => {
     return new Promise((resolve, reject) => {
@@ -74,6 +76,7 @@ const AddDonor = () => {
     setLoading(false);
     setInputData({ bloodGroup: "A+" });
     setError("");
+    refetch();
   };
 
   const handleSubmit = async (e) => {
