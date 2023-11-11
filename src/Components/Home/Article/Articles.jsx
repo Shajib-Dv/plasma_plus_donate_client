@@ -10,8 +10,7 @@ import useCurrentUser from "../../../hooks/useCurrentUser";
 const Articles = () => {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [editableArticle, setEditableArticle] = useState({});
-  const { currentUser } = useCurrentUser();
-  const { role } = currentUser;
+  const { role } = useCurrentUser();
   const { articles, isLoading, refetch } = getArticles();
 
   const handleEditArticle = (article) => {

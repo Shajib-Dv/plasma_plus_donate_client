@@ -1,6 +1,7 @@
 /** @format */
 
 import { useRef, useState } from "react";
+import useToast from "../../hooks/useToast";
 
 const img_host_url = `https://api.imgbb.com/1/upload?key=${
   import.meta.env.VITE_IMG_HOST_KEY
@@ -11,6 +12,36 @@ const AddDonor = () => {
   const [avatar, setAvatar] = useState(null);
   const [inputData, setInputData] = useState({ bloodGroup: "A+" });
   const [error, setError] = useState("");
+  const { Toast } = useToast();
+
+  const uploadImage = () => {
+    return new Promise((resolve, reject) => {
+      const imgInfo = avatarRef.current?.files[0];
+      if (!imgInfo) {
+        reject("No image selected");
+        return;
+      }
+
+      const imageData = new FormData();
+      imageData.append("image", imgInfo);
+      fetch(img_host_url, {
+        method: "POST",
+        body: imageData,
+      })
+        .then((res) => res.json())
+        .then((imageRes) => {
+          if (imageRes.success) {
+            const imgURL = imageRes.data.display_url;
+            resolve(imgURL);
+          } else {
+            reject("Image upload failed");
+          }
+        })
+        .catch((err) => {
+          reject(err.message);
+        });
+    });
+  };
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -28,14 +59,54 @@ const AddDonor = () => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const storeDonorToDB = async (info) => {
+    const res = await fetch(`http://localhost:3000/donors`, {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify(info),
+    });
+
+    return res.json();
+  };
+
+  const reset = () => {
+    setAvatar(null);
+    setLoading(false);
+    setInputData({ bloodGroup: "A+" });
+    setError("");
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
+    setLoading(true);
     if (!avatar) {
       setError("Please choose an image");
+      setLoading(false);
       return;
     }
-    console.log(inputData);
+
+    const donorImg = await uploadImage();
+
+    const storeDonor = {
+      ...inputData,
+      donorImg,
+      date: new Date(),
+      status: true,
+    };
+
+    const res = await storeDonorToDB(storeDonor);
+
+    if (res.insertedId) {
+      e.target.reset();
+      reset();
+      await Toast.fire({
+        title: "Donor added successfully",
+        icon: "success",
+      });
+    }
+
+    setLoading(false);
   };
 
   const handleInputChange = (name, value) => {
@@ -82,60 +153,94 @@ const AddDonor = () => {
         </div>
         <div className="px-6 w-full space-y-4">
           <div className="flex lg:flex-row flex-col items-center gap-4">
-            <input
-              required={true}
-              onChange={(e) => handleInputChange("name", e.target.value)}
-              type="text"
-              placeholder="Donor name..."
-              className="input-file"
-            />
-            <input
-              required={true}
-              onChange={(e) => handleInputChange("email", e.target.value)}
-              type="email"
-              placeholder="Donor email..."
-              className="input-file"
-            />
+            <div className="w-full">
+              <label className="label">
+                <span className="label-text font-semibold">Donor Name</span>
+              </label>
+              <input
+                required={true}
+                onChange={(e) => handleInputChange("name", e.target.value)}
+                type="text"
+                placeholder="Donor name..."
+                className="input-file"
+              />
+            </div>
+            <div className="w-full">
+              <label className="label">
+                <span className="label-text font-semibold">Donor Email</span>
+              </label>
+              <input
+                required={true}
+                onChange={(e) => handleInputChange("email", e.target.value)}
+                type="email"
+                placeholder="name@example.com"
+                className="input-file"
+              />
+            </div>
           </div>
           <div className="flex lg:flex-row flex-col items-center gap-4">
-            <input
-              required={true}
-              onChange={(e) => handleInputChange("phone", e.target.value)}
-              type="tel"
-              placeholder="Phone number"
-              className="input-file"
-            />
-            <input
-              required={true}
-              onChange={(e) => handleInputChange("city", e.target.value)}
-              type="text"
-              placeholder="Living city"
-              className="input-file"
-            />
+            <div className="w-full">
+              <label className="label">
+                <span className="label-text font-semibold">Phone Number</span>
+              </label>
+              <input
+                required={true}
+                onChange={(e) => handleInputChange("phone", e.target.value)}
+                type="tel"
+                placeholder="+880xxxxxxxxx"
+                className="input-file"
+              />
+            </div>
+            <div className="w-full">
+              <label className="label">
+                <span className="label-text font-semibold">Living City</span>
+              </label>
+              <input
+                required={true}
+                onChange={(e) => handleInputChange("city", e.target.value)}
+                type="text"
+                placeholder="Living city"
+                className="input-file"
+              />
+            </div>
           </div>
           <div className="flex lg:flex-row flex-col items-center gap-4">
-            <select
-              onChange={(e) => handleInputChange("bloodGroup", e.target.value)}
-              className="w-full input-file bg-transparent"
-            >
-              <option value="A+">A+</option>
-              <option value="A-">A-</option>
-              <option value="B+">B+</option>
-              <option value="B-">B-</option>
-              <option value="AB+">AB+</option>
-              <option value="AB-">AB-</option>
-              <option value="O+">O+</option>
-              <option value="O-">O-</option>
-            </select>
-            <input
-              required={true}
-              onChange={(e) =>
-                handleInputChange("lastDonation", e.target.value)
-              }
-              type="date"
-              placeholder="Last donation date"
-              className="input-file"
-            />
+            <div className="w-full">
+              <label className="label">
+                <span className="label-text font-semibold">Blood Group</span>
+              </label>
+              <select
+                onChange={(e) =>
+                  handleInputChange("bloodGroup", e.target.value)
+                }
+                className="w-full input-file bg-transparent"
+              >
+                <option value="A+">A+</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B-">B-</option>
+                <option value="AB+">AB+</option>
+                <option value="AB-">AB-</option>
+                <option value="O+">O+</option>
+                <option value="O-">O-</option>
+              </select>
+            </div>
+            <div className="w-full">
+              <label className="label">
+                <span className="label-text font-semibold">
+                  Last Donation Date
+                </span>
+              </label>
+              <input
+                required={true}
+                onChange={(e) =>
+                  handleInputChange("lastDonation", e.target.value)
+                }
+                type="date"
+                placeholder="Last donation date"
+                className="input-file"
+              />
+            </div>
           </div>
 
           <div className="text-center">

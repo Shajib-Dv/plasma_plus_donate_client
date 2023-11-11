@@ -32,8 +32,7 @@ const userOptions = [
 
 const Profile = ({ user = {} }) => {
   const { logOut } = useAuth();
-  const { currentUser } = useCurrentUser();
-  const { role } = currentUser;
+  const { role } = useCurrentUser();
   return (
     <>
       <div className="dropdown dropdown-end">

@@ -6,8 +6,7 @@ import useToast from "../../../hooks/useToast";
 import useCurrentUser from "../../../hooks/useCurrentUser";
 const ArticleCard = ({ article, handleEditArticle, refetch }) => {
   const { Toast } = useToast();
-  const { currentUser } = useCurrentUser();
-  const { role } = currentUser;
+  const { role } = useCurrentUser();
   const { _id, title, description, bannerImg } = article;
 
   const handleDeleteArticle = (id) => {
