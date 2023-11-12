@@ -9,7 +9,9 @@ import {
   BsTelephoneFill,
 } from "react-icons/bs";
 import useCurrentUser from "../../hooks/useCurrentUser";
-const DonorListTableRow = ({ donor }) => {
+import useToast from "../../hooks/useToast";
+import Swal from "sweetalert2";
+const DonorListTableRow = ({ donor, refetch }) => {
   const {
     _id,
     bloodGroup,
@@ -21,6 +23,7 @@ const DonorListTableRow = ({ donor }) => {
     isAbleToDonate,
   } = donor;
   const { role } = useCurrentUser();
+  const { Toast } = useToast();
 
   const getDifferenceOfDate = (date) => {
     const givenDate = new Date(date);
@@ -32,6 +35,33 @@ const DonorListTableRow = ({ donor }) => {
     const daysDifference = timeDifference / (1000 * 60 * 60 * 24);
 
     return daysDifference.toFixed(0);
+  };
+
+  const handleDonorDelete = async (id) => {
+    Swal.fire({
+      title: "This donor will be Removed",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "red",
+      cancelButtonColor: "#4433dd",
+      confirmButtonText: "Remove",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        await fetch(`http://localhost:3000/donors/${id}`, {
+          method: "DELETE",
+        })
+          .then((res) => res.json())
+          .then(async (result) => {
+            if (result.deletedCount > 0) {
+              refetch();
+              await Toast.fire({
+                icon: "success",
+                title: "Donor removed successfully",
+              });
+            }
+          });
+      }
+    });
   };
 
   return (
@@ -97,7 +127,11 @@ const DonorListTableRow = ({ donor }) => {
             </span>
           </th>
           <th>
-            <span className="tooltip tooltip-error" data-tip="Delete">
+            <span
+              onClick={() => handleDonorDelete(_id)}
+              className="tooltip tooltip-error"
+              data-tip="Delete"
+            >
               <BsFillTrash3Fill className="base-txt" />
             </span>
           </th>

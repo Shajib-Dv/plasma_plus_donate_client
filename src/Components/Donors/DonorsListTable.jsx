@@ -87,7 +87,11 @@ const DonorsListTable = () => {
             </thead>
             <tbody>
               {donors.map((donor) => (
-                <DonorListTableRow key={donor._id} donor={donor} />
+                <DonorListTableRow
+                  key={donor._id}
+                  donor={donor}
+                  refetch={refetch}
+                />
               ))}
             </tbody>
           </table>
