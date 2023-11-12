@@ -13,6 +13,7 @@ import Contact from "../Pages/Contact/Contact";
 import Donors from "../Pages/Donors/Donors";
 import adminRoutes from "./adminRoutes";
 import userRoutes from "./userRoutes";
+import DonorsLog from "../Components/Donors/DonorsLog";
 
 const router = createBrowserRouter([
   {
@@ -28,6 +29,7 @@ const router = createBrowserRouter([
       { path: "/blog", element: <Blog /> },
       { path: "/contact", element: <Contact /> },
       { path: "/donors", element: <Donors /> },
+      { path: "/donors/log/:id", element: <DonorsLog /> },
       ...adminRoutes,
       ...userRoutes,
     ],

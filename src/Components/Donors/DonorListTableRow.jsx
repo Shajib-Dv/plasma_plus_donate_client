@@ -11,7 +11,8 @@ import {
 import useCurrentUser from "../../hooks/useCurrentUser";
 import useToast from "../../hooks/useToast";
 import Swal from "sweetalert2";
-const DonorListTableRow = ({ donor, refetch }) => {
+import { Link } from "react-router-dom";
+const DonorListTableRow = ({ donor, refetch, openModal }) => {
   const {
     _id,
     bloodGroup,
@@ -74,7 +75,9 @@ const DonorListTableRow = ({ donor, refetch }) => {
             </div>
           </div>
           <div>
-            <div className="font-bold">{name}</div>
+            <Link to={`/donors/log/${_id}`} className="font-bold link-hover">
+              {name}
+            </Link>
           </div>
         </div>
       </td>
@@ -112,7 +115,7 @@ const DonorListTableRow = ({ donor, refetch }) => {
         <div>
           <div className="flex items-center gap-2">
             <BsCalendarHeart className={`base-txt`} />
-            <span>{lastDonation}</span>
+            <span>{lastDonation.slice(0, 10)}</span>
           </div>
           <p className="base-txt font-normal text-xs">
             {getDifferenceOfDate(lastDonation)} days ago
@@ -122,7 +125,11 @@ const DonorListTableRow = ({ donor, refetch }) => {
       {role === "admin" && (
         <>
           <th>
-            <span className="tooltip tooltip-warning" data-tip="Donate">
+            <span
+              onClick={() => openModal(donor)}
+              className="tooltip tooltip-warning"
+              data-tip="Donate"
+            >
               <FaUserEdit className="base-txt text-xl" />
             </span>
           </th>

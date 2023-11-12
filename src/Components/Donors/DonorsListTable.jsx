@@ -6,12 +6,15 @@ import DonorListTableRow from "./DonorListTableRow";
 import getDonors from "../../utils/getDonors";
 import Loader from "../Loader";
 import EmptyData from "../EmptyData";
+import DonorLogModal from "../../Modals/DonerLog/DonorLogModal";
 
 const DonorsListTable = () => {
   const { role } = useCurrentUser();
   const [searchItem, setSearchItem] = useState("name");
   const [status, setStatus] = useState(null);
   const [searchValue, setSearchValue] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [donorInfo, setDonorInfo] = useState({});
 
   let url = "http://localhost:3000/donors/search";
 
@@ -26,6 +29,16 @@ const DonorsListTable = () => {
   useEffect(() => {
     refetch();
   }, [searchValue, status]);
+
+  const openModal = (donor) => {
+    setDonorInfo(donor);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setDonorInfo({});
+    setIsModalOpen(false);
+  };
 
   return (
     <>
@@ -91,6 +104,7 @@ const DonorsListTable = () => {
                   key={donor._id}
                   donor={donor}
                   refetch={refetch}
+                  openModal={openModal}
                 />
               ))}
             </tbody>
@@ -112,6 +126,13 @@ const DonorsListTable = () => {
           />
         )}
       </div>
+
+      <DonorLogModal
+        close={closeModal}
+        donor={donorInfo}
+        open={isModalOpen}
+        refetch={refetch}
+      />
     </>
   );
 };
