@@ -2,7 +2,7 @@
 
 import { useQuery } from "@tanstack/react-query";
 
-const getDonors = (url) => {
+const getDonors = (url = `http://localhost:3000/donors/search`) => {
   const {
     data: donors = [],
     isLoading,

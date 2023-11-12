@@ -69,6 +69,10 @@
   border-radius: 10px;
 }
 
+.ReactCollapse--collapse {
+  transition: height 500ms;
+}
+
 .colored-toast.swal2-icon-success {
   background-color: #de0d16 !important;
 }

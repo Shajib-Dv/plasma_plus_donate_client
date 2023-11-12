@@ -1,7 +1,10 @@
 /** @format */
-import { FaHeart, FaUserEdit } from "react-icons/fa";
+import { FaUserEdit } from "react-icons/fa";
+import { MdBloodtype, MdLocationPin } from "react-icons/md";
 import {
+  BsBalloonHeart,
   BsCalendarHeart,
+  BsFillBalloonHeartFill,
   BsFillTrash3Fill,
   BsTelephoneFill,
 } from "react-icons/bs";
@@ -18,6 +21,19 @@ const DonorListTableRow = ({ donor }) => {
     isAbleToDonate,
   } = donor;
   const { role } = useCurrentUser();
+
+  const getDifferenceOfDate = (date) => {
+    const givenDate = new Date(date);
+
+    const currentDate = new Date();
+
+    const timeDifference = currentDate - givenDate;
+
+    const daysDifference = timeDifference / (1000 * 60 * 60 * 24);
+
+    return daysDifference.toFixed(0);
+  };
+
   return (
     <tr>
       <td>
@@ -33,9 +49,17 @@ const DonorListTableRow = ({ donor }) => {
         </div>
       </td>
       <td>
-        <span className="badge badge-ghost badge-sm">{bloodGroup}</span>
+        <div className="flex items-center gap-1">
+          <MdBloodtype className="base-txt text-xl" />
+          <span className="badge badge-ghost badge-sm">{bloodGroup}</span>
+        </div>
       </td>
-      <td>{city}</td>
+      <td>
+        <div className="flex items-center gap-1">
+          <MdLocationPin className="base-txt text-xl" />
+          {city}
+        </div>
+      </td>
       <th>
         <div className="flex items-center gap-2">
           <BsTelephoneFill className="base-txt" />
@@ -43,19 +67,26 @@ const DonorListTableRow = ({ donor }) => {
         </div>
       </th>
       <th>
-        <div className="flex items-center gap-2">
-          <FaHeart
-            className={`base-txt ${
-              isAbleToDonate === "unable" && "opacity-60"
-            }`}
-          />
-          <span>{isAbleToDonate}</span>
+        <div
+          className="flex items-center gap-2 tooltip tooltip-warning"
+          data-tip={isAbleToDonate === "true" ? "available" : "unavailable"}
+        >
+          {isAbleToDonate === "true" ? (
+            <BsFillBalloonHeartFill className={`base-txt text-xl`} />
+          ) : (
+            <BsBalloonHeart className={`base-txt text-xl`} />
+          )}
         </div>
       </th>
       <th>
-        <div className="flex items-center gap-2">
-          <BsCalendarHeart className={`base-txt`} />
-          <span>{lastDonation}</span>
+        <div>
+          <div className="flex items-center gap-2">
+            <BsCalendarHeart className={`base-txt`} />
+            <span>{lastDonation}</span>
+          </div>
+          <p className="base-txt font-normal text-xs">
+            {getDifferenceOfDate(lastDonation)} days ago
+          </p>
         </div>
       </th>
       {role === "admin" && (

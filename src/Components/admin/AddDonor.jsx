@@ -3,11 +3,13 @@
 import { useRef, useState } from "react";
 import useToast from "../../hooks/useToast";
 import getDonors from "../../utils/getDonors";
+import { FaTimes } from "react-icons/fa";
+import useCurrentUser from "../../hooks/useCurrentUser";
 
 const img_host_url = `https://api.imgbb.com/1/upload?key=${
   import.meta.env.VITE_IMG_HOST_KEY
 }`;
-const AddDonor = () => {
+const AddDonor = ({ close }) => {
   const [loading, setLoading] = useState(false);
   const avatarRef = useRef();
   const [avatar, setAvatar] = useState(null);
@@ -15,6 +17,7 @@ const AddDonor = () => {
   const [error, setError] = useState("");
   const { Toast } = useToast();
   const { refetch } = getDonors();
+  const { role } = useCurrentUser();
 
   const uploadImage = () => {
     return new Promise((resolve, reject) => {
@@ -53,6 +56,7 @@ const AddDonor = () => {
 
       reader.onload = (e) => {
         setAvatar(e.target.result);
+        setError("");
       };
 
       reader.readAsDataURL(file);
@@ -76,7 +80,6 @@ const AddDonor = () => {
     setLoading(false);
     setInputData({ bloodGroup: "A+" });
     setError("");
-    refetch();
   };
 
   const handleSubmit = async (e) => {
@@ -95,21 +98,27 @@ const AddDonor = () => {
       ...inputData,
       donorImg,
       date: new Date(),
-      status: true,
     };
 
-    const res = await storeDonorToDB(storeDonor);
+    try {
+      const res = await storeDonorToDB(storeDonor);
 
-    if (res.insertedId) {
-      e.target.reset();
-      reset();
-      await Toast.fire({
-        title: "Donor added successfully",
-        icon: "success",
-      });
+      if (res.insertedId) {
+        refetch();
+        e.target.reset();
+        reset();
+        await Toast.fire({
+          title:
+            role === "admin"
+              ? "Donor added successfully"
+              : "Registration successful",
+          icon: "success",
+        });
+      }
+    } catch (error) {
+      setLoading(false);
+      setError("An error occurred while adding donor");
     }
-
-    setLoading(false);
   };
 
   const handleInputChange = (name, value) => {
@@ -119,7 +128,7 @@ const AddDonor = () => {
   };
 
   return (
-    <div className="w-full my-10 border rounded-lg p-4">
+    <div className="w-full my-10 border rounded-lg p-4 relative">
       <form
         onSubmit={handleSubmit}
         className="flex items-center flex-col lg:flex-row gap-2"
@@ -250,18 +259,26 @@ const AddDonor = () => {
             <button disabled={loading} type="submit" className="btn-base w-1/2">
               {loading ? (
                 <span className="loading loading-dots loading-sm base-txt"></span>
-              ) : (
+              ) : role === "admin" ? (
                 "Save"
+              ) : (
+                "Register"
               )}
             </button>
           </div>
           <div className="h-4">
-            {error && !avatar && (
+            {error && (
               <p className="text-center base-txt animate-pulse">{error}</p>
             )}
           </div>
         </div>
       </form>
+      <button
+        onClick={() => close()}
+        className="btn btn-ghost btn-circle absolute right-0 top-0"
+      >
+        <FaTimes className="text-xl base-txt" />
+      </button>
     </div>
   );
 };

@@ -10,15 +10,15 @@ import EmptyData from "../EmptyData";
 const DonorsListTable = () => {
   const { role } = useCurrentUser();
   const [searchItem, setSearchItem] = useState("name");
-  const [status, setStatus] = useState("able");
+  const [status, setStatus] = useState(null);
   const [searchValue, setSearchValue] = useState(null);
 
   let url = "http://localhost:3000/donors/search";
 
   if (searchValue) {
-    url += `?${searchItem}=${encodeURIComponent(
-      searchValue
-    )}&isAbleToDonate=${status}`;
+    url += `?${searchItem}=${encodeURIComponent(searchValue)}&isAbleToDonate=${
+      status || ""
+    }`;
   }
 
   const { donors, isLoading, refetch } = getDonors(url);
@@ -29,10 +29,13 @@ const DonorsListTable = () => {
 
   return (
     <>
-      <h2 className="text-3xl text-center font-bold">
+      <h2 className="text-3xl text-center font-bold pt-10">
         Find the <span className="base-txt">donor&apos;s</span> and make a
         donation
       </h2>
+      <p className="text-center py-2 base-txt">
+        {Array.isArray(donors) && donors.length} Donors Found
+      </p>
       <div className="lg:w-4/5 mx-auto my-10 p-4">
         <div className="flex flex-col lg:flex-row gap-4">
           <div className="w-full">
@@ -59,8 +62,9 @@ const DonorsListTable = () => {
                 onChange={(e) => setStatus(e.target.value)}
                 className="input-file bg-transparent"
               >
-                <option value="able">Available</option>
-                <option value="unable">Unavailable</option>
+                <option value="">All</option>
+                <option value="true">Available</option>
+                <option value="false">Unavailable</option>
               </select>
             </div>
           </div>
