@@ -73,6 +73,24 @@
   transition: height 500ms;
 }
 
+.swiper-pagination-bullet {
+  width: 1rem !important;
+  height: 1rem !important;
+  border: 8px solid rgb(243, 158, 158);
+  padding: 8px;
+  background-color: transparent !important;
+  transition: all 1s ease-in-out;
+}
+
+.swiper-pagination-bullet-active {
+  background-color: #de0d16 !important;
+}
+
+.swiper-pagination-horizontal {
+  position: relative !important;
+  margin-top: 20px;
+}
+
 .colored-toast.swal2-icon-success {
   background-color: #de0d16 !important;
 }
