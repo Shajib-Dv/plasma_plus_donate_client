@@ -83,7 +83,7 @@ const DonorsListTable = () => {
           </div>
         </div>
       </div>
-      <div className="overflow-y-auto container mx-auto mb-40 p-4">
+      <div className="overflow-y-auto container mx-auto mb-40 p-4 min-h-[500px]">
         {isLoading && <Loader />}
         {donors && Array.isArray(donors) && donors.length > 0 ? (
           <table className="table w-max lg:w-full">

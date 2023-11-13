@@ -14,11 +14,13 @@ import Donors from "../Pages/Donors/Donors";
 import adminRoutes from "./adminRoutes";
 import userRoutes from "./userRoutes";
 import DonorsLog from "../Components/Donors/DonorsLog";
+import NotFoundPage from "../Components/NotFoundPage";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <HomeLayout />,
+    errorElement: <NotFoundPage />,
     children: [
       { path: "/", element: <Home /> },
       { path: "/registration", element: <Registration /> },
