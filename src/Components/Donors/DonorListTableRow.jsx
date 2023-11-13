@@ -22,6 +22,7 @@ const DonorListTableRow = ({ donor, refetch, openModal }) => {
     lastDonation,
     donorImg,
     isAbleToDonate,
+    donationCount,
   } = donor;
   const { role } = useCurrentUser();
   const { Toast } = useToast();
@@ -78,6 +79,9 @@ const DonorListTableRow = ({ donor, refetch, openModal }) => {
             <Link to={`/donors/log/${_id}`} className="font-bold link-hover">
               {name}
             </Link>
+            {donationCount && (
+              <span className="btn btn-xs btn-circle">{donationCount}</span>
+            )}
           </div>
         </div>
       </td>

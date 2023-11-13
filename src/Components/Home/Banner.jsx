@@ -4,60 +4,40 @@ import { BiGridSmall } from "react-icons/bi";
 import { PiSignIn } from "react-icons/pi";
 import "swiper/css";
 import "swiper/css/navigation";
-import { Autoplay, Navigation } from "swiper/modules";
+import { Navigation } from "swiper/modules";
 import { Link } from "react-router-dom";
 const Banner = () => {
-  //TODO: this banner should be dynamic.
-  const bannerImg =
-    "https://images.unsplash.com/photo-1624727828489-a1e03b79bba8?auto=format&fit=crop&q=60&w=500&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzB8fGRvY3RvcnxlbnwwfHwwfHx8MA%3D%3D";
   return (
     <>
       <div className="relative lg:mb-20">
         <Swiper
           navigation={true}
-          modules={[Navigation, Autoplay]}
-          autoplay
+          modules={[Navigation]}
           loop={true}
           className="mySwiper lg:h-screen z-0"
         >
           <SwiperSlide>
             <img
-              src={bannerImg}
+              src="https://i.ibb.co/T4PmbrG/photo-1625134673337-519d4d10b313-auto-format-fit-crop-q-60-w-500-ixlib-rb-4-0.jpg"
               alt="banner_image"
               className="object-cover h-full w-full"
             />
           </SwiperSlide>
           <SwiperSlide>
             <img
-              src={bannerImg}
+              src="https://i.ibb.co/QPssRM8/1698355134374.jpg"
               alt="banner_image"
               className="object-cover h-full w-full"
             />
           </SwiperSlide>
           <SwiperSlide>
             <img
-              src={bannerImg}
-              alt="banner_image"
-              className="object-cover h-full w-full"
-            />
-          </SwiperSlide>
-          <SwiperSlide>
-            <img
-              src={bannerImg}
-              alt="banner_image"
-              className="object-cover h-full w-full"
-            />
-          </SwiperSlide>
-          <SwiperSlide>
-            <img
-              src={bannerImg}
+              src="https://i.ibb.co/x8rJ8bH/doctor-stress.jpg"
               alt="banner_image"
               className="object-cover h-full w-full"
             />
           </SwiperSlide>
         </Swiper>
-
-        {/* TODO: only admin can see it */}
         <div className="absolute top-0 right-0 z-20 btn btn-ghost btn-circle">
           <BiGridSmall className="text-3xl" />
         </div>
