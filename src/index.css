@@ -60,6 +60,11 @@
   @apply border-[#de0d16] outline-none;
 }
 
+::-webkit-input-placeholder,
+label {
+  text-transform: capitalize !important;
+}
+
 ::-webkit-scrollbar {
   width: 4px;
   height: 4px;
