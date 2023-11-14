@@ -5,9 +5,13 @@ import AddCampaign from "../../Components/Campaign/AddCampaign";
 import { useState } from "react";
 import { Collapse } from "react-collapse";
 import useCurrentUser from "../../hooks/useCurrentUser";
+import CampaignCard from "../../Components/Campaign/CampaignCard";
+import getCampaigns from "../../utils/getCampaigns";
+import Loader from "../../Components/Loader";
 const Campaign = () => {
   const [isCollaps, setIsCollaps] = useState(false);
   const { role } = useCurrentUser();
+  const { campaigns, isLoading, refetch } = getCampaigns();
   return (
     <>
       <div className="w-80 mx-auto">
@@ -31,13 +35,24 @@ const Campaign = () => {
           </div>
           <div>
             <Collapse isOpened={isCollaps}>
-              <AddCampaign close={() => setIsCollaps(false)} />
+              <AddCampaign
+                close={() => setIsCollaps(false)}
+                refetch={refetch}
+              />
             </Collapse>
           </div>
         </>
       )}
 
-      <div></div>
+      {isLoading && <Loader />}
+
+      {campaigns && Array.isArray(campaigns) && campaigns.length > 0 && (
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 p-4 mb-40">
+          {campaigns.map((campaign) => (
+            <CampaignCard key={campaign._id} campaign={campaign} role={role} />
+          ))}
+        </div>
+      )}
     </>
   );
 };

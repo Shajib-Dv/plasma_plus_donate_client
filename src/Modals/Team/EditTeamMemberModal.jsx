@@ -86,6 +86,15 @@ const EditTeamMemberModal = ({ open, close, member, refetch }) => {
       newImage = await uploadMemberImage();
     }
 
+    if (Object.keys(inputMemberInfo).length < 1) {
+      setLoading(false);
+      close();
+      Toast.fire({
+        title: "No change found to update !",
+        icon: "warning",
+      });
+    }
+
     const updatedMemberInfo = { ...inputMemberInfo, image: newImage };
 
     try {

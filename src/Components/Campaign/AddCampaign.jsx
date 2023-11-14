@@ -6,7 +6,7 @@ import { FaTimes } from "react-icons/fa";
 const img_host_url = `https://api.imgbb.com/1/upload?key=${
   import.meta.env.VITE_IMG_HOST_KEY
 }`;
-const AddCampaign = ({ close }) => {
+const AddCampaign = ({ close, refetch }) => {
   const campaignBannerRef = useRef();
   const [campaignBanner, setCampaignBanner] = useState(null);
   const [inputCampaignData, setInputCampaignData] = useState({});
@@ -96,6 +96,7 @@ const AddCampaign = ({ close }) => {
       if (res.insertedId) {
         setInputCampaignData({});
         e.target.reset();
+        refetch();
         setCampaignBanner(null);
         setLoading(false);
         await Toast.fire({
