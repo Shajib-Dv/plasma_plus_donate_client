@@ -215,7 +215,7 @@ const AddNewTeamMember = ({ close }) => {
                 className="input-file"
                 cols="5"
                 rows="5"
-                maxLength={500}
+                maxLength={300}
                 placeholder="Bio................................................................"
               ></textarea>
             </div>
