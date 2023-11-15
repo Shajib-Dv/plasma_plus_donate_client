@@ -14,7 +14,7 @@ const Banner = () => {
           navigation={true}
           modules={[Navigation]}
           loop={true}
-          className="mySwiper lg:h-screen z-0"
+          className="mySwiper lg:h-screen h-96 z-0"
         >
           <SwiperSlide>
             <img

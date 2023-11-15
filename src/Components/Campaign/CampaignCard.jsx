@@ -79,7 +79,7 @@ const CampaignCard = ({ campaign, role, refetch }) => {
   return (
     <div className="flex flex-col min-h-[20rem] overflow-hidden lg:flex-row gap-5 bg-base-100 shadow-lg border p-4 rounded-md relative">
       <Link to={`/campaign/${_id}`} className="flex-1">
-        <div className="relative group h-full overflow-hidden rounded-md">
+        <div className="relative group lg:h-full h-60 overflow-hidden rounded-md">
           <img
             src={campaignImg}
             alt="photo"

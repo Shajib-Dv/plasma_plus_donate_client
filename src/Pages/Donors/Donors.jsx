@@ -14,7 +14,7 @@ const Donors = () => {
       <Helmet>
         <title>Plasma_plus | Donors</title>
       </Helmet>
-      <div className="h-32 base-bg rounded-b-md shadow-lg p-4 border-t">
+      <div className="h-32 base-bg shadow-lg p-4">
         <h1 className="text-white text-4xl text-center font-bold">
           Register for Donation
         </h1>

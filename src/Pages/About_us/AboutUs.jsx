@@ -7,11 +7,15 @@ import { useState } from "react";
 import { Collapse } from "react-collapse";
 import TeamMemberSlider from "../../Components/Slider/TeamMemberSlider";
 import JoiningBanner from "../../Components/Home/JoiningBanner";
+import { Helmet } from "react-helmet-async";
 const AboutUs = () => {
   const { role } = useCurrentUser();
   const [isCollaps, setIsCollaps] = useState(false);
   return (
     <div>
+      <Helmet>
+        <title>Plasma_plus | About us</title>
+      </Helmet>
       <div className="w-40 mx-auto">
         <Lottie animationData={delevery} loop={true} />
       </div>

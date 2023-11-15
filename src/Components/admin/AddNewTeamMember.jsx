@@ -113,7 +113,7 @@ const AddNewTeamMember = ({ close }) => {
     });
   };
   return (
-    <div className="lg:w-1/2 mx-auto p-4 border rounded-lg relative mt-10">
+    <div className="lg:w-4/5 2xl:w-1/2 mx-auto p-4 border rounded-lg relative mt-10">
       <form onSubmit={handleAddNewMember}>
         <div className="flex flex-col lg:flex-row items-center gap-4">
           <div className="flex gap-4 md:flex-row flex-col items-center">

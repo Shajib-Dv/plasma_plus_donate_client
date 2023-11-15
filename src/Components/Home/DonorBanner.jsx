@@ -4,7 +4,7 @@ import { BiChevronsRight } from "react-icons/bi";
 
 const DonorBanner = () => {
   return (
-    <div className="mb-40 h-max container mx-auto border rounded-lg">
+    <div className="mb-40 h-max container mx-auto border rounded-lg p-4">
       <div className="lg:flex relative">
         <div className="h-[30rem] flex-1">
           <img

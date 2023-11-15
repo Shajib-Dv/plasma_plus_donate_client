@@ -9,12 +9,16 @@ import CampaignCard from "../../Components/Campaign/CampaignCard";
 import getCampaigns from "../../utils/getCampaigns";
 import Loader from "../../Components/Loader";
 import JoiningBanner from "../../Components/Home/JoiningBanner";
+import { Helmet } from "react-helmet-async";
 const Campaign = () => {
   const [isCollaps, setIsCollaps] = useState(false);
   const { role } = useCurrentUser();
   const { campaigns, isLoading, refetch } = getCampaigns();
   return (
     <>
+      <Helmet>
+        <title>Plasma_plus | campaigns</title>
+      </Helmet>
       <div className="w-80 mx-auto">
         <Lottie animationData={Anotomology} loop={true} />
       </div>
@@ -48,7 +52,7 @@ const Campaign = () => {
       {isLoading && <Loader />}
 
       {campaigns && Array.isArray(campaigns) && campaigns.length > 0 && (
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 p-4 mb-40">
+        <div className="grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-3 gap-4 p-4 mb-40">
           {campaigns.map((campaign) => (
             <CampaignCard
               key={campaign._id}

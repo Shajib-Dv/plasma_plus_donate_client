@@ -117,7 +117,7 @@ const AddCampaign = ({ close, refetch }) => {
   };
 
   return (
-    <div className="card lg:w-1/2 mx-auto min-h-[20rem] bg-base-100 shadow-xl mb-20 border relative">
+    <div className="card 2xl:w-1/2 lg:w-4/5 mx-auto min-h-[20rem] bg-base-100 shadow-xl mb-20 border relative">
       <form
         onSubmit={handleCampaignSubmit}
         className="flex gap-4 lg:flex-row flex-col items-center"
