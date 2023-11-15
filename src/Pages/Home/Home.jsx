@@ -8,6 +8,7 @@ import Statics from "../../Components/Home/Statics";
 import Services from "../../Components/Home/Services/Services";
 import RequestBloodBanner from "../../Components/Home/BloodRequest/RequestBloodBanner";
 import JoiningBanner from "../../Components/Home/JoiningBanner";
+import CampaignSlider from "../../Components/Slider/CampaignSlider";
 
 const Home = () => {
   return (
@@ -21,6 +22,7 @@ const Home = () => {
       <Statics />
       <Services />
       <RequestBloodBanner />
+      <CampaignSlider />
       <JoiningBanner />
     </>
   );

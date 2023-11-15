@@ -3,10 +3,43 @@
 import { FaCalendar, FaSearchLocation, FaStopwatch } from "react-icons/fa";
 import { BiGridSmall } from "react-icons/bi";
 import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
+import useToast from "../../hooks/useToast";
 
-const CampaignCard = ({ campaign, role }) => {
+const CampaignCard = ({ campaign, role, refetch }) => {
   const { _id, campaignStart, campaignEnd, title, location, des, campaignImg } =
     campaign;
+  const { Toast } = useToast();
+
+  const currentDate = new Date();
+  const previousDate = new Date(campaignStart);
+
+  const handleCampaignDelete = (id) => {
+    Swal.fire({
+      title: "Your campaign will be deleted",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "red",
+      cancelButtonColor: "#4433dd",
+      confirmButtonText: "Delete",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        fetch(`http://localhost:3000/campaigns/${id}`, {
+          method: "DELETE",
+        })
+          .then((res) => res.json())
+          .then(async (result) => {
+            if (result.deletedCount > 0) {
+              refetch();
+              await Toast.fire({
+                icon: "success",
+                title: "Campaign deleted successfully",
+              });
+            }
+          });
+      }
+    });
+  };
 
   const formatDateAndTime = (inputDate) => {
     const date = new Date(inputDate);
@@ -44,9 +77,9 @@ const CampaignCard = ({ campaign, role }) => {
     return formattedTime;
   };
   return (
-    <div className="flex flex-col h-full lg:flex-row gap-5 bg-base-100 shadow-lg border p-4 rounded-md relative">
+    <div className="flex flex-col min-h-[20rem] overflow-hidden lg:flex-row gap-5 bg-base-100 shadow-lg border p-4 rounded-md relative">
       <Link to={`/campaign/${_id}`} className="flex-1">
-        <div className="relative group overflow-hidden rounded-md">
+        <div className="relative group h-full overflow-hidden rounded-md">
           <img
             src={campaignImg}
             alt="photo"
@@ -69,12 +102,15 @@ const CampaignCard = ({ campaign, role }) => {
         <h2 className="text-2xl text-black font-bold capitalize pt-2">
           {title}
         </h2>
-        <p className="py-4">{des.slice(0, 150)}...</p>
+        <p className="py-4 text-gray-500">{des.slice(0, 150)}...</p>
         <div className="flex items-center flex-wrap gap-4 justify-between">
           <div className="flex items-center gap-2">
             <FaStopwatch className="base-txt text-xl" />
             <p>{formatDateAndTime(campaignStart).time}</p> <span>-</span>
             <p>{formatTime(campaignEnd)}</p>
+            {currentDate > previousDate && (
+              <span className="base-txt text-xs">Close</span>
+            )}
           </div>
           <div className="flex items-center gap-2">
             <FaSearchLocation className="base-txt text-xl" />
@@ -93,7 +129,9 @@ const CampaignCard = ({ campaign, role }) => {
               className="z-20 p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-max mr-4"
             >
               <li>
-                <button>Delete</button>
+                <button onClick={() => handleCampaignDelete(_id)}>
+                  Delete
+                </button>
               </li>
             </ul>
           </div>

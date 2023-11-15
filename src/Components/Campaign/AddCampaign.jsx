@@ -122,7 +122,7 @@ const AddCampaign = ({ close, refetch }) => {
         onSubmit={handleCampaignSubmit}
         className="flex gap-4 lg:flex-row flex-col items-center"
       >
-        <div className="p-4">
+        <div className="p-4 flex-1 h-full">
           <div
             onClick={() => campaignBannerRef.current.click()}
             className="h-80 w-full cursor-pointer rounded-lg relative overflow-hidden"
@@ -151,7 +151,7 @@ const AddCampaign = ({ close, refetch }) => {
             </div>
           </div>
         </div>
-        <div className="px-6">
+        <div className="px-6 lg:flex-1 w-full">
           <div className="mb-2 flex lg:flex-row flex-col items-center gap-2">
             <div className="w-full">
               <label className="label base-txt">

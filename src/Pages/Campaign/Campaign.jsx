@@ -8,6 +8,7 @@ import useCurrentUser from "../../hooks/useCurrentUser";
 import CampaignCard from "../../Components/Campaign/CampaignCard";
 import getCampaigns from "../../utils/getCampaigns";
 import Loader from "../../Components/Loader";
+import JoiningBanner from "../../Components/Home/JoiningBanner";
 const Campaign = () => {
   const [isCollaps, setIsCollaps] = useState(false);
   const { role } = useCurrentUser();
@@ -49,10 +50,17 @@ const Campaign = () => {
       {campaigns && Array.isArray(campaigns) && campaigns.length > 0 && (
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 p-4 mb-40">
           {campaigns.map((campaign) => (
-            <CampaignCard key={campaign._id} campaign={campaign} role={role} />
+            <CampaignCard
+              key={campaign._id}
+              campaign={campaign}
+              role={role}
+              refetch={refetch}
+            />
           ))}
         </div>
       )}
+
+      <JoiningBanner />
     </>
   );
 };
