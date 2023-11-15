@@ -1,12 +1,6 @@
 /** @format */
 import { BiChevronsRight } from "react-icons/bi";
-import {
-  FaFacebook,
-  FaInstagram,
-  FaPlus,
-  FaTwitter,
-  FaYoutube,
-} from "react-icons/fa";
+import { FaFacebook, FaGithub, FaLinkedin, FaPlus } from "react-icons/fa";
 const Footer = () => {
   return (
     <footer className="footer p-10 bg-black text-white">
@@ -50,33 +44,25 @@ const Footer = () => {
             href="http://facebook.com/shajib.hossain.dev"
             target="_blank"
             rel="noopener noreferrer"
-            className="block text-2xl hover:text-[#de0d16]"
+            className="block text-2xl"
           >
-            <FaFacebook />
+            <FaFacebook className="block text-2xl hover:text-[#de0d16]" />
           </a>
           <a
-            href="http://twiter.com/shajib.hossain.dev"
+            href="https://www.linkedin.com/in/sojeebhossain/"
             target="_blank"
             rel="noopener noreferrer"
-            className="block text-2xl hover:text-[#de0d16]"
+            className="block text-2xl"
           >
-            <FaTwitter />
+            <FaLinkedin className="block text-2xl hover:text-[#de0d16]" />
           </a>
           <a
-            href="http://instagram.com/shajib.hossain.dev"
+            href="https://github.com/Shajib-Dv"
             target="_blank"
             rel="noopener noreferrer"
-            className="block text-2xl hover:text-[#de0d16]"
+            className="block text-2xl"
           >
-            <FaInstagram />
-          </a>
-          <a
-            href="http://youtube.com/shajib.hossain.dev"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="block text-2xl hover:text-[#de0d16]"
-          >
-            <FaYoutube />
+            <FaGithub className="block text-2xl hover:text-[#de0d16]" />
           </a>
         </div>
         <div className="h-full w-max p-4  base-bg brand-box rounded-lg center-itm">

@@ -6,11 +6,6 @@ import useCurrentUser from "../../hooks/useCurrentUser";
 
 const adminOptions = [
   {
-    id: 1,
-    url: "/admin/manage_donation",
-    title: "manage donation",
-  },
-  {
     id: 2,
     url: "/admin/blood_request",
     title: "blood request",
@@ -22,17 +17,16 @@ const adminOptions = [
   },
 ];
 
-const userOptions = [
-  {
-    id: 1,
-    url: "/user/donation_log",
-    title: "donation log",
-  },
-];
-
 const Profile = ({ user = {} }) => {
   const { logOut } = useAuth();
-  const { role } = useCurrentUser();
+  const { role, _id } = useCurrentUser();
+  const userOptions = [
+    {
+      id: 1,
+      url: `/user/donation_log/${_id}`,
+      title: "donation log",
+    },
+  ];
   return (
     <>
       <div className="dropdown dropdown-end">
