@@ -9,6 +9,7 @@ import useCurrentUser from "../../hooks/useCurrentUser";
 import { BiGridSmall } from "react-icons/bi";
 import useToast from "../../hooks/useToast";
 import Swal from "sweetalert2";
+import AddGalleryPhoto from "../../Components/AddGalleryPhoto";
 
 const Gallery = () => {
   const { photos, isLoading, refetch } = getGalleryPhotos();
@@ -51,20 +52,22 @@ const Gallery = () => {
           Our Photo <span className="base-txt">Gallery</span>
         </h2>
       </div>
+
       <div className="container mx-auto my-20 p-4">
         {isLoading && <Loader />}
         {photos && Array.isArray(photos) && photos.length > 0 ? (
           <div className="flex gap-6 flex-wrap">
+            {role === "admin" && <AddGalleryPhoto refetch={refetch} />}
             {photos.map((photo) => (
               <div
                 key={photo._id}
-                className="basis-1/5 rounded-md overflow-hidden relative"
+                className="lg:basis-1/5 rounded-md overflow-hidden relative"
               >
                 <img
                   src={photo.img}
                   alt="photo"
                   loading="lazy"
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover hover:scale-110 transition-all duration-500"
                 />
                 {role === "admin" && (
                   <div className="absolute top-0 right-0 z-20 btn btn-ghost btn-circle">
