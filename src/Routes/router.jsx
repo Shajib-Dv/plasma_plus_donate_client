@@ -13,6 +13,7 @@ import adminRoutes from "./adminRoutes";
 import userRoutes from "./userRoutes";
 import DonorsLog from "../Components/Donors/DonorsLog";
 import NotFoundPage from "../Components/NotFoundPage";
+import CampaignDetails from "../Components/Campaign/CampaignDetails";
 
 const router = createBrowserRouter([
   {
@@ -28,6 +29,7 @@ const router = createBrowserRouter([
       { path: "/gallery", element: <Gallery /> },
       { path: "/donors", element: <Donors /> },
       { path: "/donors/log/:id", element: <DonorsLog /> },
+      { path: "/campaign/:id", element: <CampaignDetails /> },
       ...adminRoutes,
       ...userRoutes,
     ],

@@ -45,6 +45,7 @@ const Articles = () => {
           </div>
         )}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+          {role === "admin" && <AddArticles refetch={refetch} />}
           {articles &&
             Array.isArray(articles) &&
             articles.length > 0 &&
@@ -57,8 +58,6 @@ const Articles = () => {
                 openMessage={openMessage}
               />
             ))}
-
-          {role === "admin" && <AddArticles refetch={refetch} />}
         </div>
         <EditArticleModal
           open={isEditModalOpen}

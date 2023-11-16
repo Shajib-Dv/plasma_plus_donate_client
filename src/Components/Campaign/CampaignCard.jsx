@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import useToast from "../../hooks/useToast";
 
-const CampaignCard = ({ campaign, role, refetch }) => {
+const CampaignCard = ({ campaign, role, refetch, showDetails = false }) => {
   const { _id, campaignStart, campaignEnd, title, location, des, campaignImg } =
     campaign;
   const { Toast } = useToast();
@@ -88,33 +88,39 @@ const CampaignCard = ({ campaign, role, refetch }) => {
           <div className="absolute center-ps w-full h-full">
             <div className="w-full h-full bg-black bg-opacity-0 group-hover:bg-opacity-40 transition-all duration-500 flex items-center justify-center">
               <p className="text-xl base-txt font-bold opacity-0 group-hover:opacity-100 transition-all duration-500 ">
-                Read More
+                {!showDetails && "Read More"}
               </p>
             </div>
           </div>
         </div>
       </Link>
       <div className="flex-1">
-        <div className="flex items-center gap-2">
-          <FaCalendar className="base-txt text-xl" />
-          <p>{formatDateAndTime(campaignStart).startDate}</p>
-        </div>
-        <h2 className="text-2xl text-black font-bold capitalize pt-2">
-          {title}
-        </h2>
-        <p className="py-4 text-gray-500">{des.slice(0, 150)}...</p>
-        <div className="flex items-center flex-wrap gap-4 justify-between">
-          <div className="flex items-center gap-2">
-            <FaStopwatch className="base-txt text-xl" />
-            <p>{formatDateAndTime(campaignStart).time}</p> <span>-</span>
-            <p>{formatTime(campaignEnd)}</p>
-            {currentDate > previousDate && (
-              <span className="base-txt text-xs">Close</span>
-            )}
+        <div className="flex flex-col justify-between h-full">
+          <div>
+            <div className="flex items-center gap-2">
+              <FaCalendar className="base-txt text-xl" />
+              <p>{formatDateAndTime(campaignStart).startDate}</p>
+            </div>
+            <h2 className="text-2xl text-black font-bold capitalize pt-2">
+              {title}
+            </h2>
+            <p className="py-4 text-gray-500">
+              {showDetails ? des : des?.slice(0, 150)}...
+            </p>
           </div>
-          <div className="flex items-center gap-2">
-            <FaSearchLocation className="base-txt text-xl" />
-            <p>{location}</p>
+          <div className="flex items-center flex-wrap gap-4 justify-between">
+            <div className="flex items-center gap-2">
+              <FaStopwatch className="base-txt text-xl" />
+              <p>{formatDateAndTime(campaignStart).time}</p> <span>-</span>
+              <p>{formatTime(campaignEnd)}</p>
+              {currentDate > previousDate && (
+                <span className="base-txt text-xs">Close</span>
+              )}
+            </div>
+            <div className="flex items-center gap-2">
+              <FaSearchLocation className="base-txt text-xl" />
+              <p>{location}</p>
+            </div>
           </div>
         </div>
       </div>

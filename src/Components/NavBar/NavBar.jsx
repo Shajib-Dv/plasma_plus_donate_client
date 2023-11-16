@@ -36,7 +36,7 @@ const NavBar = () => {
         <div className="w-fit lg:w-3/12 flex items-center justify-end pr-10 h-full">
           {user?.email && <Profile user={user} />}
         </div>
-        <div className="lg:hidden w-20 z-50">
+        <div className="lg:hidden w-20 z-40">
           <button
             className="btn btn-ghost btn-circle "
             onClick={() => setIsNavOpen(!isNavOpen)}
