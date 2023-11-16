@@ -14,7 +14,13 @@ const JoiningBanner = () => {
         </div>
         <div>
           <button className="w-max bg-white py-4 px-10 font-bold text-black">
-            Contact Us
+            <a
+              href="https://wa.me/+8801786072025"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Contact Us
+            </a>
           </button>
         </div>
       </div>

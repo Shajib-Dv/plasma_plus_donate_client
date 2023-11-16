@@ -11,7 +11,6 @@ const links = [
   { id: 2, title: "About us", url: "/about_us" },
   { id: 3, title: "Campaign", url: "/campaign" },
   { id: 4, title: "Gallery", url: "/gallery" },
-  { id: 6, title: "Contact", url: "/contact" },
   { id: 7, title: "Registration", url: "/registration" },
   { id: 8, title: "Donors", url: "/donors" },
 ];

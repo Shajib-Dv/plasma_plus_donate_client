@@ -4,7 +4,7 @@ import { GiLifeSupport } from "react-icons/gi";
 import Swal from "sweetalert2";
 import useToast from "../../../hooks/useToast";
 import useCurrentUser from "../../../hooks/useCurrentUser";
-const ArticleCard = ({ article, handleEditArticle, refetch }) => {
+const ArticleCard = ({ article, handleEditArticle, refetch, openMessage }) => {
   const { Toast } = useToast();
   const { role } = useCurrentUser();
   const { _id, title, description, bannerImg } = article;
@@ -81,7 +81,12 @@ const ArticleCard = ({ article, handleEditArticle, refetch }) => {
         <p>{description.slice(0, 100)}...</p>
 
         <div className="card-actions justify-center w-full">
-          <button className="btn-base w-full">Read More</button>
+          <button
+            onClick={() => openMessage(description)}
+            className="btn-base w-full"
+          >
+            Read More
+          </button>
         </div>
       </div>
     </div>

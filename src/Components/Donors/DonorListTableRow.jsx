@@ -76,12 +76,12 @@ const DonorListTableRow = ({ donor, refetch, openModal }) => {
             </div>
           </div>
           <div>
-            <Link to={`/donors/log/${_id}`} className="font-bold link-hover">
+            <Link
+              to={role === "admin" ? `/donors/log/${_id}` : ""}
+              className="font-bold link-hover"
+            >
               {name}
             </Link>
-            {donationCount && (
-              <span className="btn btn-xs btn-circle">{donationCount}</span>
-            )}
           </div>
         </div>
       </td>

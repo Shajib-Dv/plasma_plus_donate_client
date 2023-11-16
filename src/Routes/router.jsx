@@ -8,7 +8,6 @@ import LogIn from "../Pages/Register/LogIn";
 import AboutUs from "../Pages/About_us/AboutUs";
 import Campaign from "../Pages/Campaign/Campaign";
 import Gallery from "../Pages/Gallery/Gallery";
-import Contact from "../Pages/Contact/Contact";
 import Donors from "../Pages/Donors/Donors";
 import adminRoutes from "./adminRoutes";
 import userRoutes from "./userRoutes";
@@ -27,7 +26,6 @@ const router = createBrowserRouter([
       { path: "/about_us", element: <AboutUs /> },
       { path: "/campaign", element: <Campaign /> },
       { path: "/gallery", element: <Gallery /> },
-      { path: "/contact", element: <Contact /> },
       { path: "/donors", element: <Donors /> },
       { path: "/donors/log/:id", element: <DonorsLog /> },
       ...adminRoutes,

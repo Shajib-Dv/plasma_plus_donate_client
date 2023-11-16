@@ -2,6 +2,7 @@
 
 import { useRef, useState } from "react";
 import useToast from "../../hooks/useToast";
+import { FaTimes } from "react-icons/fa";
 
 const img_host_url = `https://api.imgbb.com/1/upload?key=${
   import.meta.env.VITE_IMG_HOST_KEY
@@ -105,9 +106,9 @@ const EditArticleModal = ({ open, close, article, refetch }) => {
   return (
     <>
       <dialog open={open} className="modal">
-        <div className="modal-box w-11/12 max-w-5xl">
+        <div className="modal-box w-11/12 max-w-5xl border-2">
           <div className="modal-action justify-center">
-            <form onSubmit={handleSubmit} className="flex flex-col gap-2 pb-8">
+            <form onSubmit={handleSubmit} className="flex flex-col gap-2">
               <div className="flex gap-4 md:flex-row flex-col items-center">
                 <div
                   onClick={() => avatarRef.current.click()}
@@ -173,9 +174,9 @@ const EditArticleModal = ({ open, close, article, refetch }) => {
             </form>
             <div
               onClick={() => close()}
-              className="btn btn-sm btn-circle btn-ghost absolute right-0 top-0 base-txt"
+              className="btn btn-sm btn-circle btn-ghost absolute right-0 top-0"
             >
-              X
+              <FaTimes className="text-2xl base-txt" />
             </div>
           </div>
         </div>

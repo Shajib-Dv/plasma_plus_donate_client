@@ -18,20 +18,31 @@ const DonorsLog = () => {
   };
   const { id } = useParams();
   const { donationLog, isLoading } = getDonationLog(id);
-
-  const { _id, name, donorImg, ...prevLog } = donationLog?.donor || {};
+  const donor = donationLog?.donor || {};
+  const { _id, name, donorImg, ...prevLog } = donor;
   const prevKey = Object.keys(prevLog) || [];
   const donations = donationLog?.donations || [];
 
   return (
     <>
-      <div className="h-24 base-bg center-itm">
-        <h2 className="text-4xl text-white font-bold">
-          Donation Log of <code>~~{name}~~</code>
-        </h2>
-      </div>
-      {isLoading ? (
-        <Loader />
+      {name && (
+        <div className="h-24 base-bg center-itm">
+          <h2 className="text-4xl text-white font-bold">
+            Donation Log of <code>~~{name}~~</code>
+          </h2>
+        </div>
+      )}
+      {isLoading && <Loader />}
+
+      {Object.keys(donor).length === 0 && !isLoading ? (
+        <div className="h-80">
+          <EmptyData
+            reason={"You have to donation log to show"}
+            message={"donate someone and visit later"}
+            go={"Donate now"}
+            to={"/donors"}
+          />
+        </div>
       ) : (
         <div className="container mx-auto my-40">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -78,12 +89,14 @@ const DonorsLog = () => {
                 ))}
               </div>
             ) : (
-              <div>
-                <EmptyData
-                  message={"No donation log found"}
-                  reason={"this donar has no donate yet !"}
-                />
-              </div>
+              !isLoading && (
+                <div>
+                  <EmptyData
+                    message={"No donation log found"}
+                    reason={"this donar has no donate yet !"}
+                  />
+                </div>
+              )
             )}
           </div>
         </div>
