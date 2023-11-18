@@ -14,11 +14,14 @@ const MakeNewAdmin = ({ open, close }) => {
 
     const sendRole = { role };
 
-    const res = await fetch(`http://localhost:3000/users/${email}`, {
-      method: "PUT",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify(sendRole),
-    })
+    const res = await fetch(
+      `https://plasma-plus-server.vercel.app/users/${email}`,
+      {
+        method: "PUT",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify(sendRole),
+      }
+    )
       .then((res) => res.json())
       .catch((err) => {
         setLoading(false);

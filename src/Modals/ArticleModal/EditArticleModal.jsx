@@ -80,7 +80,7 @@ const EditArticleModal = ({ open, close, article, refetch }) => {
         date: new Date(),
       };
 
-      fetch(`http://localhost:3000/article/${id}`, {
+      fetch(`https://plasma-plus-server.vercel.app/article/${id}`, {
         method: "PUT",
         headers: { "content-type": "application/json" },
         body: JSON.stringify(storeArticle),

@@ -65,11 +65,14 @@ const AddNewTeamMember = ({ close }) => {
   };
 
   const storeNewMember = async (data) => {
-    const res = await fetch(`http://localhost:3000/team_member`, {
-      method: "POST",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify(data),
-    });
+    const res = await fetch(
+      `https://plasma-plus-server.vercel.app/team_member`,
+      {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify(data),
+      }
+    );
 
     return res.json();
   };

@@ -10,7 +10,7 @@ const getCurrentUser = () => {
     enabled: !!user?.email,
     queryFn: async () => {
       const res = await fetch(
-        `http://localhost:3000/users?email=${user?.email}`
+        `https://plasma-plus-server.vercel.app/users?email=${user?.email}`
       );
       return res.json();
     },

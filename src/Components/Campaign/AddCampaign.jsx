@@ -63,7 +63,7 @@ const AddCampaign = ({ close, refetch }) => {
   };
 
   const storeCampaignToDB = async (campaign) => {
-    const res = await fetch(`http://localhost:3000/campaigns`, {
+    const res = await fetch(`https://plasma-plus-server.vercel.app/campaigns`, {
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(campaign),

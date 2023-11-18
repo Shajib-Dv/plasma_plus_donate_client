@@ -10,7 +10,7 @@ const getArticles = () => {
   } = useQuery({
     queryKey: ["articles"],
     queryFn: async () => {
-      const res = await fetch(`http://localhost:3000/article`);
+      const res = await fetch(`https://plasma-plus-server.vercel.app/article`);
 
       return res.json();
     },

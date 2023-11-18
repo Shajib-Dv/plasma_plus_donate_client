@@ -15,17 +15,20 @@ const DonorLogModal = ({ open, close, donor, refetch }) => {
       lastDonation: new Date(),
     };
 
-    const res = await fetch(`http://localhost:3000/donors/${id}`, {
-      method: "PUT",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify(updateInfo),
-    });
+    const res = await fetch(
+      `https://plasma-plus-server.vercel.app/donors/${id}`,
+      {
+        method: "PUT",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify(updateInfo),
+      }
+    );
 
     return res.json();
   };
 
   const storeDonationLog = async (data) => {
-    const res = await fetch(`http://localhost:3000/donor/log`, {
+    const res = await fetch(`https://plasma-plus-server.vercel.app/donor/log`, {
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(data),

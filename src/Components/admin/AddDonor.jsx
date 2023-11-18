@@ -66,7 +66,7 @@ const AddDonor = ({ close }) => {
   };
 
   const storeDonorToDB = async (info) => {
-    const res = await fetch(`http://localhost:3000/donors`, {
+    const res = await fetch(`https://plasma-plus-server.vercel.app/donors`, {
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(info),

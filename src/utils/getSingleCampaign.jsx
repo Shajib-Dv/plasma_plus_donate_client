@@ -12,7 +12,7 @@ const getSingleCampaign = (id) => {
     enabled: !!id,
     queryFn: async () => {
       const res = await fetch(
-        `http://localhost:3000/campaigns?campaignId=${id}`
+        `https://plasma-plus-server.vercel.app/campaigns?campaignId=${id}`
       );
 
       return res.json();

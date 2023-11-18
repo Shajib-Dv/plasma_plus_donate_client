@@ -19,7 +19,7 @@ const ArticleCard = ({ article, handleEditArticle, refetch, openMessage }) => {
       confirmButtonText: "Delete",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:3000/article/${id}`, {
+        fetch(`https://plasma-plus-server.vercel.app/article/${id}`, {
           method: "DELETE",
         })
           .then((res) => res.json())

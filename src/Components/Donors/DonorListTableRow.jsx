@@ -49,7 +49,7 @@ const DonorListTableRow = ({ donor, refetch, openModal }) => {
       confirmButtonText: "Remove",
     }).then(async (result) => {
       if (result.isConfirmed) {
-        await fetch(`http://localhost:3000/donors/${id}`, {
+        await fetch(`https://plasma-plus-server.vercel.app/donors/${id}`, {
           method: "DELETE",
         })
           .then((res) => res.json())

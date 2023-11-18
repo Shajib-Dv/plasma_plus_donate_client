@@ -66,11 +66,14 @@ const EditTeamMemberModal = ({ open, close, member, refetch }) => {
   };
 
   const updateMemberInfo = async (data) => {
-    const res = await fetch(`http://localhost:3000/team_member/${_id}`, {
-      method: "PUT",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify(data),
-    });
+    const res = await fetch(
+      `https://plasma-plus-server.vercel.app/team_member/${_id}`,
+      {
+        method: "PUT",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify(data),
+      }
+    );
 
     return res.json();
   };

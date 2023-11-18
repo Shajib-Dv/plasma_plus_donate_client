@@ -17,7 +17,7 @@ const Registration = () => {
   const { name, email, password } = fromData;
 
   const storeUserInDB = async (userInfo) => {
-    const res = await fetch(`http://localhost:3000/users`, {
+    const res = await fetch(`https://plasma-plus-server.vercel.app/users`, {
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(userInfo),

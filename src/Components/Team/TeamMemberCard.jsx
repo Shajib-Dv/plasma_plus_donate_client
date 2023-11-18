@@ -22,7 +22,7 @@ const TeamMemberCard = ({ member, refetch, handleMemberEdit }) => {
       confirmButtonText: "Delete",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:3000/team_member/${id}`, {
+        fetch(`https://plasma-plus-server.vercel.app/team_member/${id}`, {
           method: "DELETE",
         })
           .then((res) => res.json())

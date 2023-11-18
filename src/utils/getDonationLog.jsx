@@ -7,7 +7,9 @@ const getDonationLog = (id) => {
     queryKey: ["donation-log"],
     enabled: !!id,
     queryFn: async () => {
-      const res = await fetch(`http://localhost:3000/donor/log?donorId=${id}`);
+      const res = await fetch(
+        `https://plasma-plus-server.vercel.app/donor/log?donorId=${id}`
+      );
 
       return res.json();
     },

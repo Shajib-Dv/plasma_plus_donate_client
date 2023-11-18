@@ -10,7 +10,9 @@ const getCampaigns = () => {
   } = useQuery({
     queryKey: ["campaigns"],
     queryFn: async () => {
-      const res = await fetch(`http://localhost:3000/campaigns`);
+      const res = await fetch(
+        `https://plasma-plus-server.vercel.app/campaigns`
+      );
       return res.json();
     },
   });

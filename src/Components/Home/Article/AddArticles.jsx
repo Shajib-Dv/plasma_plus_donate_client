@@ -69,7 +69,7 @@ const AddArticles = ({ refetch }) => {
         date: new Date(),
       };
 
-      await fetch(`http://localhost:3000/article`, {
+      await fetch(`https://plasma-plus-server.vercel.app/article`, {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify(storeArticle),

@@ -16,7 +16,7 @@ const DonorsListTable = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [donorInfo, setDonorInfo] = useState({});
 
-  let url = "http://localhost:3000/donors/search";
+  let url = "https://plasma-plus-server.vercel.app/donors/search";
 
   if (searchValue) {
     url += `?${searchItem}=${encodeURIComponent(searchValue)}&isAbleToDonate=${

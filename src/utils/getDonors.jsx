@@ -2,7 +2,9 @@
 
 import { useQuery } from "@tanstack/react-query";
 
-const getDonors = (url = `http://localhost:3000/donors/search`) => {
+const getDonors = (
+  url = `https://plasma-plus-server.vercel.app/donors/search`
+) => {
   const {
     data: donors = [],
     isLoading,

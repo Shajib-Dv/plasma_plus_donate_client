@@ -26,7 +26,7 @@ const Gallery = () => {
       confirmButtonText: "Delete",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:3000/gallery/${id}`, {
+        fetch(`https://plasma-plus-server.vercel.app/gallery/${id}`, {
           method: "DELETE",
         })
           .then((res) => res.json())

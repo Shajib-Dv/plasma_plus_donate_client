@@ -10,7 +10,7 @@ const getGalleryPhotos = () => {
   } = useQuery({
     queryKey: ["gallery"],
     queryFn: async () => {
-      const res = await fetch(`http://localhost:3000/gallery`);
+      const res = await fetch(`https://plasma-plus-server.vercel.app/gallery`);
       return res.json();
     },
   });

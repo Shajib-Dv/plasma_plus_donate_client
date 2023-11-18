@@ -24,7 +24,7 @@ const CampaignCard = ({ campaign, role, refetch, showDetails = false }) => {
       confirmButtonText: "Delete",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:3000/campaigns/${id}`, {
+        fetch(`https://plasma-plus-server.vercel.app/campaigns/${id}`, {
           method: "DELETE",
         })
           .then((res) => res.json())

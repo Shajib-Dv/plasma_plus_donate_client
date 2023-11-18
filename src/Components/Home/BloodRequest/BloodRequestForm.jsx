@@ -16,11 +16,14 @@ const BloodRequestForm = () => {
   const { refetch } = getCurrentBloodRequest();
 
   const storeBloodRequestToDB = async (info) => {
-    const res = await fetch(`http://localhost:3000/blood_request`, {
-      method: "POST",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify(info),
-    });
+    const res = await fetch(
+      `https://plasma-plus-server.vercel.app/blood_request`,
+      {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify(info),
+      }
+    );
 
     return res.json();
   };

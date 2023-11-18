@@ -30,9 +30,12 @@ const RequestedBloodTable = ({ blood, refetch, handleMsgOpen }) => {
   };
 
   const deleteBloodRequestToDB = async (id) => {
-    const res = await fetch(`http://localhost:3000/blood_request/${id}`, {
-      method: "DELETE",
-    });
+    const res = await fetch(
+      `https://plasma-plus-server.vercel.app/blood_request/${id}`,
+      {
+        method: "DELETE",
+      }
+    );
     return res.json();
   };
 

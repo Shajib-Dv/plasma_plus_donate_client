@@ -11,7 +11,9 @@ const getSliderCampaigns = (limit) => {
     queryKey: ["slider_campaigns"],
     enabled: !!limit,
     queryFn: async () => {
-      const res = await fetch(`http://localhost:3000/campaigns?limit=${limit}`);
+      const res = await fetch(
+        `https://plasma-plus-server.vercel.app/campaigns?limit=${limit}`
+      );
       return res.json();
     },
   });
