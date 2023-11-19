@@ -71,7 +71,7 @@ To run the project locally, follow these steps:
 If you have any questions or suggestions, feel free to reach out to us:
 
 - Email: mdsojeeb242@gmail.com
-- Whats app: [wa.me/+8801786072025]()
+- Whats app: [wa.me/+8801786072025](https://wa.me/+8801786072025)
 
 ## Acknowledgments
 
