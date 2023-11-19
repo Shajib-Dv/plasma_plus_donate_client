@@ -83,7 +83,7 @@ const CampaignCard = ({ campaign, role, refetch, showDetails = false }) => {
           <img
             src={campaignImg}
             alt="photo"
-            className="h-full w-full object-cover group-hover:scale-105 transition-all duration-500"
+            className="h-[20rem] w-full object-cover group-hover:scale-105 transition-all duration-500"
           />
           <div className="absolute center-ps w-full h-full">
             <div className="w-full h-full bg-black bg-opacity-0 group-hover:bg-opacity-40 transition-all duration-500 flex items-center justify-center">

@@ -65,11 +65,21 @@ const AddGalleryPhoto = ({ refetch }) => {
     setLoading(true);
 
     const img = await uploadGalleryImage();
-    const storedPhoto = { destBy: "Shajib", date: new Date(), img };
+
+    if (!img) {
+      setError("Image not be uploaded");
+      setLoading(false);
+      return;
+    }
+    const storedPhoto = {
+      img,
+      owner: "Shajib",
+      thumbnail: img,
+      date: new Date(),
+    };
 
     fetch(`https://plasma-plus-server.vercel.app/gallery`, {
       method: "POST",
-      mode: "no-cors",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(storedPhoto),
     })
