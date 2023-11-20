@@ -39,8 +39,6 @@ const DonorsLog = () => {
           <EmptyData
             reason={"You have to donation log to show"}
             message={"donate someone and visit later"}
-            go={"Donate now"}
-            to={"/donors"}
           />
         </div>
       ) : (
@@ -93,7 +91,7 @@ const DonorsLog = () => {
                 <div>
                   <EmptyData
                     message={"No donation log found"}
-                    reason={"this donar has no donate yet !"}
+                    reason={"this donar has no donation yet !"}
                   />
                 </div>
               )

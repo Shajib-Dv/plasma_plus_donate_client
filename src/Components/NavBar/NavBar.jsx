@@ -6,6 +6,7 @@ import { useState } from "react";
 import ActiveLink from "./ActiveLink";
 import Profile from "./Profile";
 import useAuth from "../../hooks/useAuth";
+import { Link } from "react-router-dom";
 const links = [
   { id: 1, title: "Home", url: "/" },
   { id: 2, title: "About us", url: "/about_us" },
@@ -22,10 +23,13 @@ const NavBar = () => {
     <>
       <TopNavStatic />
       <div className="w-full h-24 bg-base-200 flex  items-center justify-between">
-        <div className="h-full lg:w-3/12 w-full base-bg brand-box center-itm">
+        <Link
+          to={"/"}
+          className="h-full lg:w-3/12 w-full base-bg brand-box center-itm"
+        >
           <h2 className="text-3xl text-white font-bold">Plasma</h2>
           <FaPlus className="text-white text-3xl" />
-        </div>
+        </Link>
         <div className="lg:flex hidden w-full justify-evenly">
           {links.map((link) => (
             <ActiveLink key={link.id} to={link.url}>

@@ -1,4 +1,6 @@
 /** @format */
+import Swal from "sweetalert2";
+
 import { Swiper, SwiperSlide } from "swiper/react";
 import { BiGridSmall } from "react-icons/bi";
 import { PiSignIn } from "react-icons/pi";
@@ -7,6 +9,13 @@ import "swiper/css/navigation";
 import { Navigation } from "swiper/modules";
 import { Link } from "react-router-dom";
 const Banner = () => {
+  const donationGuide = () => {
+    Swal.fire({
+      title: "Donation access denied",
+      text: "please contact your administrator before accessing this page",
+      icon: "question",
+    });
+  };
   return (
     <>
       <div className="relative lg:mb-20">
@@ -78,9 +87,9 @@ const Banner = () => {
               <h2 className="text-3xl font-bold">Donate Now</h2>
               <p>Become a donor and help the mankind for inner peace.</p>
             </div>
-            <Link to={"/donors"}>
+            <button onClick={donationGuide}>
               <PiSignIn className="text-3xl" />
-            </Link>
+            </button>
           </div>
         </div>
       </div>

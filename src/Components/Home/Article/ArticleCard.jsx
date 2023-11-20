@@ -4,10 +4,12 @@ import { GiLifeSupport } from "react-icons/gi";
 import Swal from "sweetalert2";
 import useToast from "../../../hooks/useToast";
 import useCurrentUser from "../../../hooks/useCurrentUser";
+import { useState } from "react";
 const ArticleCard = ({ article, handleEditArticle, refetch, openMessage }) => {
   const { Toast } = useToast();
   const { role } = useCurrentUser();
   const { _id, title, description, bannerImg } = article;
+  const [showMenu, setShowMenu] = useState(false);
 
   const handleDeleteArticle = (id) => {
     Swal.fire({
@@ -37,7 +39,10 @@ const ArticleCard = ({ article, handleEditArticle, refetch, openMessage }) => {
   };
 
   return (
-    <div className="card w-full bg-base-100 shadow-xl">
+    <div
+      onMouseLeave={() => setShowMenu(false)}
+      className="card h-full justify-between w-full bg-base-100 shadow-xl"
+    >
       <div className="relative">
         <figure className="h-80 rounded-lg">
           <img
@@ -53,13 +58,17 @@ const ArticleCard = ({ article, handleEditArticle, refetch, openMessage }) => {
         </div>
         {role === "admin" && (
           <div className="absolute top-0 right-0 z-20 btn btn-ghost btn-circle">
-            <div className="dropdown dropdown-end">
-              <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
+            <div>
+              <label
+                onClick={() => setShowMenu((p) => !p)}
+                className="btn btn-ghost btn-circle avatar"
+              >
                 <BiGridSmall className="text-3xl base-txt" />
               </label>
               <ul
-                tabIndex={0}
-                className="z-20 p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-max mr-4"
+                className={`${
+                  showMenu ? "" : "hidden"
+                } z-20 p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-max mr-12`}
               >
                 <li>
                   <button onClick={() => handleEditArticle(article)}>

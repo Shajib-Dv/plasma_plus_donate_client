@@ -96,9 +96,9 @@ const AddArticles = ({ refetch }) => {
   };
 
   return (
-    <div className="card w-full min-h-[20rem] bg-base-100 shadow-xl">
+    <div className="card w-full h-full bg-base-100 shadow-xl">
       <form onSubmit={handleSubmit} className="flex flex-col gap-2 pb-8">
-        <div className="flex gap-4 md:flex-row flex-col items-center">
+        <div className="flex gap-4 flex-col items-center">
           <div
             onClick={() => avatarRef.current.click()}
             className="h-80 w-full cursor-pointer rounded-lg relative overflow-hidden"
@@ -127,34 +127,38 @@ const AddArticles = ({ refetch }) => {
               </div>
             </div>
           </div>
-        </div>
-        <div className="px-6">
-          <input
-            required={true}
-            onChange={(e) =>
-              setInputData({ ...inputData, title: e.target.value })
-            }
-            type="text"
-            placeholder="Title"
-            className="input-file"
-          />
-          <textarea
-            required={true}
-            onChange={(e) =>
-              setInputData({ ...inputData, description: e.target.value })
-            }
-            className="input-file mt-4"
-            cols="20"
-            rows="4"
-            placeholder="Write your article description"
-          ></textarea>
-          <button disabled={loading} type="submit" className="btn-base w-full">
-            {loading ? (
-              <span className="loading loading-dots loading-sm base-txt"></span>
-            ) : (
-              "Submit"
-            )}
-          </button>
+          <div className="px-6">
+            <input
+              required={true}
+              onChange={(e) =>
+                setInputData({ ...inputData, title: e.target.value })
+              }
+              type="text"
+              placeholder="Title"
+              className="input-file"
+            />
+            <textarea
+              required={true}
+              onChange={(e) =>
+                setInputData({ ...inputData, description: e.target.value })
+              }
+              className="input-file mt-4"
+              cols="20"
+              rows="4"
+              placeholder="Write your article description"
+            ></textarea>
+            <button
+              disabled={loading}
+              type="submit"
+              className="btn-base w-full"
+            >
+              {loading ? (
+                <span className="loading loading-dots loading-sm base-txt"></span>
+              ) : (
+                "Submit"
+              )}
+            </button>
+          </div>
         </div>
       </form>
     </div>

@@ -1,5 +1,10 @@
 /** @format */
 
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/free-mode";
+import "swiper/css/pagination";
+import { FreeMode, Pagination } from "swiper/modules";
 import { useState } from "react";
 import EditArticleModal from "../../../Modals/ArticleModal/EditArticleModal";
 import AddArticles from "./AddArticles";
@@ -44,20 +49,50 @@ const Articles = () => {
             <span className="loading loading-dots loading-lg base-txt"></span>
           </div>
         )}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-          {role === "admin" && <AddArticles refetch={refetch} />}
-          {articles &&
-            Array.isArray(articles) &&
-            articles.length > 0 &&
-            articles.map((article) => (
-              <ArticleCard
-                key={article._id}
-                article={article}
-                handleEditArticle={handleEditArticle}
-                refetch={refetch}
-                openMessage={openMessage}
-              />
-            ))}
+        <div>
+          {articles && Array.isArray(articles) && articles.length > 0 && (
+            <Swiper
+              slidesPerView={3}
+              spaceBetween={30}
+              freeMode={true}
+              pagination={{
+                clickable: true,
+              }}
+              breakpoints={{
+                640: {
+                  slidesPerView: 1,
+                  spaceBetween: 20,
+                },
+                390: {
+                  slidesPerView: 1,
+                  spaceBetween: 30,
+                },
+                1024: {
+                  slidesPerView: 3,
+                  spaceBetween: 30,
+                },
+              }}
+              modules={[FreeMode, Pagination]}
+              className="mySwiper"
+            >
+              {role === "admin" && (
+                <SwiperSlide>
+                  <AddArticles refetch={refetch} />
+                </SwiperSlide>
+              )}
+              {articles.map((article) => (
+                <SwiperSlide key={article._id}>
+                  <ArticleCard
+                    key={article._id}
+                    article={article}
+                    handleEditArticle={handleEditArticle}
+                    refetch={refetch}
+                    openMessage={openMessage}
+                  />
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          )}
         </div>
         <EditArticleModal
           open={isEditModalOpen}

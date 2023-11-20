@@ -4,7 +4,6 @@ import { useRef, useState } from "react";
 import useToast from "../../hooks/useToast";
 import getDonors from "../../utils/getDonors";
 import { FaTimes } from "react-icons/fa";
-import useCurrentUser from "../../hooks/useCurrentUser";
 
 const img_host_url = `https://api.imgbb.com/1/upload?key=${
   import.meta.env.VITE_IMG_HOST_KEY
@@ -17,7 +16,6 @@ const AddDonor = ({ close }) => {
   const [error, setError] = useState("");
   const { Toast } = useToast();
   const { refetch } = getDonors();
-  const { role } = useCurrentUser();
 
   const uploadImage = () => {
     return new Promise((resolve, reject) => {
@@ -108,12 +106,10 @@ const AddDonor = ({ close }) => {
         e.target.reset();
         reset();
         await Toast.fire({
-          title:
-            role === "admin"
-              ? "Donor added successfully"
-              : "Registration successful",
+          title: "Donor added successfully",
           icon: "success",
         });
+        close();
       }
     } catch (error) {
       setLoading(false);
@@ -259,10 +255,8 @@ const AddDonor = ({ close }) => {
             <button disabled={loading} type="submit" className="btn-base w-1/2">
               {loading ? (
                 <span className="loading loading-dots loading-sm base-txt"></span>
-              ) : role === "admin" ? (
-                "Save"
               ) : (
-                "Register"
+                "Save"
               )}
             </button>
           </div>

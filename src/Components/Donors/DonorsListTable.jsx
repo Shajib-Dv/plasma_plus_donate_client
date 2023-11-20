@@ -43,8 +43,7 @@ const DonorsListTable = () => {
   return (
     <>
       <h2 className="text-3xl text-center font-bold pt-10">
-        Find the <span className="base-txt">donor&apos;s</span> and make a
-        donation
+        Find a <span className="base-txt">donor</span> to connect
       </h2>
       <p className="text-center py-2 base-txt">
         {Array.isArray(donors) && donors.length} Donors Found
