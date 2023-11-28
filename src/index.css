@@ -36,6 +36,10 @@ button:disabled {
   @apply btn bg-[#de0d16] text-white capitalize hover:bg-[#de0d18e7] border-none;
 }
 
+.black {
+  background-color: black !important;
+}
+
 .bg-blood {
   background-image: url(./assets/blood-bg.png);
   background-repeat: no-repeat;

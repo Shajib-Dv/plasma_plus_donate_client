@@ -99,6 +99,7 @@ const AddCampaign = ({ close, refetch }) => {
         refetch();
         setCampaignBanner(null);
         setLoading(false);
+        close();
         await Toast.fire({
           icon: "success",
           title: "Campaign successfully added",

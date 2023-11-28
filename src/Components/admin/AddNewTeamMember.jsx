@@ -99,6 +99,7 @@ const AddNewTeamMember = ({ close }) => {
         setAvatar(null);
         setLoading(false);
         setInputInfo({});
+        close();
         Toast.fire({
           title: "New Member Added",
           icon: "success",
